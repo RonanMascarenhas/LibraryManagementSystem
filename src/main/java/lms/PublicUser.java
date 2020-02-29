@@ -1,4 +1,4 @@
-//package ;
+package lms;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
