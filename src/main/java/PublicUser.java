@@ -1,19 +1,31 @@
-//package src.main.java;
+//package ;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class PublicUser {
-    private int id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int publicUserID;
+    private String publicUsername;
 
+
+public int getPublicUserID() {
+    return publicUserID;
 }
 
-public int getId() {
-    return id;
+public void setPublicUserID(int publicUserID) {
+    this.publicUserID = publicUserID;
 }
 
-public void setId(int id) {
-    this.id = id;
+public String getPublicUsername() {
+    return publicUsername;
+}
+
+public void setpublicUsername(String publicUsername) {
+    this.publicUsername = publicUsername;
+}
 }
