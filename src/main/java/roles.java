@@ -1,4 +1,0 @@
-enum roles{
-    memeber,
-    librarian;
-}

@@ -6,14 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class PublicUser {
-    private int id;
+     private int id;
+ 
+  
 
-}
+    public int getId() {
+        return id;
+    }
 
-public int getId() {
-    return id;
-}
-
-public void setId(int id) {
-    this.id = id;
+    public void setId(int id) {
+        this.id = id;
+    }
 }

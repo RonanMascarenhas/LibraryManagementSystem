@@ -12,7 +12,7 @@ public class Librarian{
     private Long id;
     private String name;
     private String password;
-    private 
+    private Role role; 
     
     public Long getId(){
         return id;
@@ -36,5 +36,13 @@ public class Librarian{
 
     public void setPassword(){
         this.password=password;
+    }
+
+    public Role getRole(){
+        return role;
+    }
+
+    public void setRole(){
+        this.role=role;
     }
 }
