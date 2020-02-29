@@ -8,8 +8,8 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/>
 	</parent>
-	<groupId>ie.ucd</groupId>
-	<artifactId>hello-static-view</artifactId>
+	<groupId>main</groupId>
+	<artifactId>main</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
