@@ -16,30 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LMSController{
     @Autowired
-    private ArtifactRepository artRepo;
-
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("title", "LMS: Home");
-        //model.addAttribute("user", userSession.getUser());
-        model.addAttribute("artifacts", artRepo.findAll());
-        return "index.html";
-    }
+    private ArtifactRepository artifactRepository;
+    private UserSession userSession;
 
     @GetMapping("/guest_search")
     public String guest_search(@RequestParam("id") long id, Model model) {
-        Artifact artifact = artRepo.getOne(id);
+        Artifact artifact = artifactRepository.getOne(id);
         model.addAttribute("name", "Artifact: " + artifact.getName());
         model.addAttribute("artifact", artifact);
         //Artifact artifact = artRepo.getOne(1);
         return "guest_search.html";
     }
 
-    /*@GetMapping("/artifact")
-    public String artifact(@RequestParam("id") long id, Model model)    {
-        Artifact artifact = artRepo.getOne(id);
-        model.addAttribute("name", "Artifact: " + artifact.getName());
-        model.addAttribute("artifact", artifact);
-        return "guest_search.html";
-    }*/
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("title", "Library: Home");
+        model.addAttribute("user", userSession.getUser());
+        model.addAttribute("artifacts", artifactRepository.findAll());
+        return "index.html";
+    }
 }

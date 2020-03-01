@@ -6,11 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Member {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String username;
     private String password;
     private Role role;
 
@@ -23,11 +23,11 @@ public class Member {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
