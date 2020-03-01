@@ -1,5 +1,4 @@
 lms\PublicUser.class
-lms\Role.class
 lms\Type.class
 lms\LMSController.class
 lms\LibraryApplication.class
