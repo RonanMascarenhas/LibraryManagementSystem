@@ -16,6 +16,6 @@ import java.util.Optional;
 public class PublicUserController   {
     //@Autowired
     //private PublicUserRepository PublicUserRepository;
-    @GetMapping("/login")
-    public String greeting()    { return "login.html"; }
+    //@GetMapping("/login")
+    //public String greeting()    { return "login.html"; }
 }
