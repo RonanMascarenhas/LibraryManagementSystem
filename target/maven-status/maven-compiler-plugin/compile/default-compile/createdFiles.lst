@@ -1,7 +1,4 @@
-lms\PublicUser.class
 lms\Type.class
 lms\LMSController.class
 lms\LibraryApplication.class
 lms\Artifact.class
-lms\PublicUserController.class
-lms\PublicUserRepository.class

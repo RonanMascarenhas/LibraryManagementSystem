@@ -15,5 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LMSController{
-    //@GetMapping("/guest_search")
+    @Autowired
+    private ArtifactRepository artifactRepository;
+    private UserSession userSession;
+    
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("title", "Library: Home");
+        model.addAttribute("user", userSession.getUser());
+        model.addAttribute("artifacts", artifactRepository.findAll());
+        return "index.html";
+    }
 }
