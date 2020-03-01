@@ -3,8 +3,6 @@ lms\Role.class
 lms\Type.class
 lms\LMSController.class
 lms\LibraryApplication.class
-lms\Librarian.class
 lms\Artifact.class
 lms\PublicUserController.class
-lms\Member.class
 lms\PublicUserRepository.class
