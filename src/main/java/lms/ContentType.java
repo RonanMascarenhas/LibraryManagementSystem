@@ -1,5 +1,6 @@
 package lms;
-enum type {
+
+enum Type {
     book,
     cd,
     dvd,

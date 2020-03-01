@@ -1,0 +1,1 @@
+INSERT INTO artifact(id, content_Type, name) VALUES (1, 0, 'Mel is Love Mel is Life')
