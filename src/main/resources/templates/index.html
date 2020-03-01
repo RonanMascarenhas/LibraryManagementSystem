@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr th:each="artifact : ${artifacts}">
-                    <td style="text-align:center;"><a th:href="@{/artifact(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
+                    <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
                 </tr>
             </tbody>
         </table>

@@ -22,17 +22,17 @@ public class LMSController{
     @GetMapping("/guest_search")
     public String guest_search(@RequestParam("id") long id, Model model) {
         Artifact artifact = artifactRepository.getOne(id);
-        model.addAttribute("name", "Artifact: " + artifact.getName());
-        model.addAttribute("artifact", artifact);
+        //model.addAttribute("name", "Artifact: " + artifact.getName());
+        //model.addAttribute("artifact", artifact);
         //Artifact artifact = artRepo.getOne(1);
         return "guest_search.html";
     }
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("title", "Library: Home");
-        model.addAttribute("user", userSession.getUser());
-        model.addAttribute("artifacts", artifactRepository.findAll());
+        //model.addAttribute("title", "Library: Home");
+        //model.addAttribute("user", userSession.getUser());
+        //model.addAttribute("artifacts", artifactRepository.findAll());
         return "index.html";
     }
 }
