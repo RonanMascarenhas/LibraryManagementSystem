@@ -34,13 +34,16 @@ public class LMSController{
         
         //enter name of artifact you want
         //match input name with db artifact name (search db)
-
-        
         return "guest_search.html";
     }
 
     @GetMapping("/search_results")
-    public String search_resulString(Model model)   {
+    public String search_results(@RequestParam(name="artifactID") Long artifactID,
+    Model model)   {
+        Artifact artifact = artifactRepository.getOne(artifactID);
+        model.addAttribute("name", "Artifact: " + artifact.getName());
+        model.addAttribute("artifact", artifact);
+        
         //Artifact artifact = artifactRepository.getOne(id);
         //model.addAttribute("name", "Artifact: " + artifact.getName());
         //model.addAttribute("artifact", artifact);

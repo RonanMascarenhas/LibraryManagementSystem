@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html>
     <body>
-       <h2>HEY THIS FUKIN WORKS TOO</h2>
+       <h2>SEARCH RESULTS:</h2>
 
        <div class="container">
         <table class="table">
-            <!--<thead>
+            <thead>
                 <tr>
-                    
-                    //<th style="text-align:center;">Available Artifacts</th>
+                    <th style="text-align:center;">Available Artifacts</th>
                 </tr>
-            </thead>-->
+            </thead>
             <tbody>
-                <form method="GET" action="/search_results">
-                    Artifact ID:<br>
-                    <input type="number" name="artifactID"><br>
-                    <button type="submit">Search by ID</button>
-                </form>
+                <td style="text-align:center;"> <a th:text="${artifact.name}"></a></td>
+                <tr th:each="artifacts : ${artifacts}">
+                    <td style="text-align:center;"> <a th:text="${artifact.name}"></a></td>
+                </tr>
+
                 <!--<tr th:each="artifacts : ${artifacts}">
                     <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
                 </tr>-->

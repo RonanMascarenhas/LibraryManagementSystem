@@ -13,9 +13,9 @@
             </thead>-->
             <tbody>
                 <form method="GET" action="/search_results">
-                    Artifact name:<br>
-                    <input type="text" name="name"><br>
-                    <button type="submit">Enter</button>
+                    Artifact ID:<br>
+                    <input type="number" name="artifactID"><br>
+                    <button type="submit">Search by ID</button>
                 </form>
                 <!--<tr th:each="artifacts : ${artifacts}">
                     <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
