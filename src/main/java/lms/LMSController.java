@@ -43,10 +43,8 @@ public class LMSController{
         Artifact artifact = artifactRepository.getOne(artifactID);
         model.addAttribute("name", "Artifact: " + artifact.getName());
         model.addAttribute("artifact", artifact);
-        
-        //Artifact artifact = artifactRepository.getOne(id);
-        //model.addAttribute("name", "Artifact: " + artifact.getName());
-        //model.addAttribute("artifact", artifact);
+        String artifactName = artifact.getName();
+        System.out.print(artifactName);
         return "search_results.html";
     }
 
