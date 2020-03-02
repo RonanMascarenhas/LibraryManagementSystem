@@ -5,15 +5,21 @@
 
        <div class="container">
         <table class="table">
-            <thead>
+            <!--<thead>
                 <tr>
-                    <th style="text-align:center;">Available Artifacts</th>
+                    
+                    //<th style="text-align:center;">Available Artifacts</th>
                 </tr>
-            </thead>
+            </thead>-->
             <tbody>
-                <tr th:each="artifacts : ${artifacts}">
+                <form method="GET" action="/search_results">
+                    Artifact name:<br>
+                    <input type="text" name="name"><br>
+                    <button type="submit">Enter</button>
+                </form>
+                <!--<tr th:each="artifacts : ${artifacts}">
                     <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>

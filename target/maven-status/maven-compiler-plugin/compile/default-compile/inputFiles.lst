@@ -1,12 +1,9 @@
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\LibrarianReop.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\PublicUser.java
 C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\ContentType.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\MemberRepo.java
+C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\User.java
+C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\UserRepository.java
 C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\Artifact.java
 C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\LMSController.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\PublicUserRepository.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\Member.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\Librarian.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\Role.java
-C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\PublicUserController.java
+C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\ArtifactRepository.java
+C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\UserSession.java
 C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\LibraryApplication.java
+C:\Users\User\Desktop\cs\s3sem2\webdev\finalProject\repo\src\main\java\lms\LoginController.java

@@ -1,4 +1,9 @@
+lms\User.class
 lms\Type.class
+lms\ArtifactRepository.class
 lms\LMSController.class
 lms\LibraryApplication.class
+lms\UserSession.class
 lms\Artifact.class
+lms\LoginController.class
+lms\UserRepository.class

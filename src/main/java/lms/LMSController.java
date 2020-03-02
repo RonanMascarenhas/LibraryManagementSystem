@@ -17,22 +17,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LMSController{
     @Autowired
     private ArtifactRepository artifactRepository;
+    @Autowired
     private UserSession userSession;
-
-    @GetMapping("/guest_search")
-    public String guest_search(@RequestParam("id") long id, Model model) {
-        Artifact artifact = artifactRepository.getOne(id);
-        //model.addAttribute("name", "Artifact: " + artifact.getName());
-        //model.addAttribute("artifact", artifact);
-        //Artifact artifact = artRepo.getOne(1);
-        return "guest_search.html";
-    }
 
     @GetMapping("/")
     public String index(Model model) {
-        //model.addAttribute("title", "Library: Home");
-        //model.addAttribute("user", userSession.getUser());
-        //model.addAttribute("artifacts", artifactRepository.findAll());
+        model.addAttribute("title", "Library: Home");
+        model.addAttribute("user", userSession.getUser());
+        
         return "index.html";
     }
+
+    @GetMapping("/guest_search")
+    public String guest_search(Model model) {
+        model.addAttribute("artifacts", artifactRepository.findAll());
+        
+        //enter name of artifact you want
+        //match input name with db artifact name (search db)
+
+        
+        return "guest_search.html";
+    }
+
+    @GetMapping("/search_results")
+    public String search_resulString(Model model)   {
+        //Artifact artifact = artifactRepository.getOne(id);
+        //model.addAttribute("name", "Artifact: " + artifact.getName());
+        //model.addAttribute("artifact", artifact);
+        return "search_results.html";
+    }
+
 }
