@@ -36,10 +36,10 @@ public class LMSController  {
     }
 
     @GetMapping("/search_results")
-    public String search_results(@RequestParam(name="artifactID") long artifactID, Model model)   {
+    public String search_results(@RequestParam(name="artifactID") Long artifactID, Model model)   {
         //long artID = artifactID;
         //Long artIDWrap = artID;
-
+        //if artifactID
         Optional artifactCheck;
         try
         {
@@ -63,8 +63,8 @@ public class LMSController  {
         model.addAttribute("message","Match found:" );
         model.addAttribute("name", artifact.getName());
         model.addAttribute("artifact", artifact);
-        String artifactName = artifact.getName();
-        System.out.print(artifactName);
+        //String artifactName = artifact.getName();
+        //System.out.print(artifactName);
         return "search_results.html";
 
         //artifactRepository.find
