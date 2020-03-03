@@ -35,8 +35,8 @@ public class LMSController  {
         return "guest_search.html";
     }
 
-    @GetMapping("/search_results")
-    public String search_results(@RequestParam(name="artifactID") Long artifactID, Model model)   {
+    @GetMapping("/search_results_ID")
+    public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
         //long artID = artifactID;
         //Long artIDWrap = artID;
         //if artifactID
@@ -78,5 +78,34 @@ public class LMSController  {
             return "search_results.html";
         }
         else    {*/
+    }
+
+    @GetMapping("/search_results_name")
+    public String search_results_name(@RequestParam(name="artifactName") String artifactName, Model model)   {
+        Artifact artifactCheck;
+        try
+        {
+            artifactCheck = artifactRepository.findByName(artifactName);
+        } 
+        catch (Exception e)
+        {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "search_results.html";
+        }
+
+        /*if(artifactCheck.isPresent() == false) {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "search_results.html";
+        }*/
+
+        //Artifact artifact = artifactRepository.getOne(artifactID);
+        model.addAttribute("message","Match found:" );
+        model.addAttribute("name", artifactCheck.getName());
+        model.addAttribute("artifact", artifactCheck);
+        //String artifactName = artifact.getName();
+        //System.out.print(artifactName);
+        return "search_results.html";
     }
 }
