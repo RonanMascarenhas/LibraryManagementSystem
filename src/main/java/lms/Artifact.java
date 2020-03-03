@@ -9,16 +9,16 @@ import javax.persistence.Id;
 public class Artifact{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     //private Type contentType;
     private String name;
     //total number of artifacts
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id)   {
+    public void setId(long id)   {
         this.id = id;
     }
 
