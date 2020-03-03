@@ -41,7 +41,7 @@ public class LMSController{
     public String search_results(@RequestParam(name="artifactID") Long artifactID,
     Model model)   {
         Artifact artifact = artifactRepository.getOne(artifactID);
-        model.addAttribute("name", "Artifact: " + artifact.getName());
+        model.addAttribute("name", artifact.getName());
         model.addAttribute("artifact", artifact);
         String artifactName = artifact.getName();
         System.out.print(artifactName);
