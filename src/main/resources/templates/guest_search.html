@@ -26,6 +26,11 @@
                 <!--<tr th:each="artifacts : ${artifacts}">
                     <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
                 </tr>-->
+                <br>
+                <form method="GET" action="/register">
+                    Register to the Library<br>
+                    <button type="submit">Sign Up</button>
+                </form>
             </tbody>
         </table>
     </div>

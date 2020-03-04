@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import lms.User;
 
 @Controller
 public class LMSController  {
@@ -19,6 +20,9 @@ public class LMSController  {
     private ArtifactRepository artifactRepository;
     @Autowired
     private UserSession userSession;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @GetMapping("/")
     public String index(Model model) {
@@ -108,4 +112,15 @@ public class LMSController  {
         //System.out.print(artifactName);
         return "search_results.html";
     }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        return "register.html";
+    }
+
+    /*@PostMapping("/register_complete")
+    public String register_complete(Credentials credentials, Model model)   {
+        //newUser = User.new(5, credentials.getUsername(), credentials.getPassword(), "member");
+        //userRepository.save(newUser);
+    }*/
 }
