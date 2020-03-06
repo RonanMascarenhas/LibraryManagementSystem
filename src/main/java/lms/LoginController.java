@@ -29,23 +29,23 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public void doLogin(String username, String password, HttpServletResponse response) throws Exception {
+    public String doLogin(String username, String password, HttpServletResponse response) throws Exception {
         Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
         if (user.isPresent()) {
             userSession.setUser(user.get());
             if(userSession.getUser().getRole().equals("librarian")){
-                response.sendRedirect("/librarian_menu");
+                return ("/librarian_menu");
             }
             else if(userSession.getUser().getRole().equals("member")){
-                response.sendRedirect("/member_menu");
+                return ("/test");
             }
             else{
-                response.sendRedirect("/index");
+                return ("/index");
             }
            
         } else {
             userSession.setLoginFailed(true);
-            response.sendRedirect("/index");
+            return ("/index");
         }
 
     }
