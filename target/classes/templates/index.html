@@ -5,7 +5,7 @@
     <head>
         <title>Index</title>
     </head>
-    <body style="background-image: url('https://latireta.files.wordpress.com/2018/05/eco-green-hill-2334.jpg'); height: auto; width: auto; object-fit: cover;">
+    <body style="background-image: url('https://latireta.files.wordpress.com/2018/05/eco-green-hill-2334.jpg'); background-size:  cover;">
         <nav class = "navbar navbar-expand-lg header">
              <a href="/"><img id="logo" src="images/logo.png" width="100px" height="100px"></a>
              <div>
@@ -21,28 +21,16 @@
             <div class="row">
                 <div class="col-lg-12">&nbsp;</div>
             </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6 mx-auto">  
-                    <form method="USER" action="/login">
+                <div style="display: block; text-align: center;">
+                    <form method="POST" action="/login">
                         <div class="row">
                             <div class="col-lg-4"></div>
-                            <div class="col-lg-4"><label for="username">Username:</label></div>
+                            <div class="col-lg-4"><input type="text" name="username" placeholder="Username"></div>
                             <div class="col-lg-4"></div>
                         </div>
                         <div class="row">
                             <div class="col-lg-4"></div>
-                            <div class="col-lg-4"><input type="text" name="username"></div>
-                            <div class="col-lg-4"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4"><label for="password">Password:</label></div>
-                            <div class="col-lg-4"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4"><input type   ="password" name="password"></div>
+                            <div class="col-lg-4"><input type="password" name="password" placeholder="Password"></div>
                             <div class="col-lg-4"></div>
                         </div>
                         <div class="row">
@@ -58,9 +46,8 @@
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4"><a href="/guest_search"><button type="guest" class="btn btn-primary">Proceed as Guest</button></a></div>
                         <div class="col-lg-4"></div>
-                    </div>
+                    </div>  
                 </div>
-                <div class="col"></div>
             </div>
     </body>
 
