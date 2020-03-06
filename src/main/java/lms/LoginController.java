@@ -25,7 +25,16 @@ public class LoginController {
         if (user.isPresent()) {
             userSession.setUser(user.get());
             System.out.println("LOGIN SUCCESS");
-            return "/librarian_menu";
+            if(userSession.getUser().getRole().equals("libraian")){
+                return "/librarian_menu";
+            }
+            else if(userSession.getUser().getRole().equals("member")){
+                return "/member_menu";
+            }
+            else {
+                return "/index";
+            }
+            
         } else {
             userSession.setLoginFailed(true);
             System.out.println("LOGIN FAILED");
