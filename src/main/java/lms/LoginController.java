@@ -25,7 +25,7 @@ public class LoginController {
         if (user.isPresent()) {
             userSession.setUser(user.get());
             System.out.println("LOGIN SUCCESS");
-            if(userSession.getUser().getRole().equals("libraian")){
+            if(userSession.getUser().getRole().equals("librarian")){
                 return "/librarian_menu";
             }
             else if(userSession.getUser().getRole().equals("member")){
