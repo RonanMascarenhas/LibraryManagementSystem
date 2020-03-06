@@ -8,5 +8,5 @@ import java.util.List;
 public interface LoanRepository extends JpaRepository<Loan, Long> {
     //List<Artifact> findByName(String name);
 
-    Loan findByid(long id);
+    //Loan findByid(long id);
 }
