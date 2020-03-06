@@ -1,3 +1,19 @@
-.mid {
+div.mid {
     background-color: white;
+}
+
+#mid{
+    background-color: white;
+}
+
+div{
+    color: white;
+}
+
+h1 {
+    color: blueviolet;
+}
+
+.title{
+    color: red;
 }
