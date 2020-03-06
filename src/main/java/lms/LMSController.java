@@ -126,6 +126,11 @@ public class LMSController  {
         return "librarian_menu.html";
     }
 
+    @GetMapping("/librarian_search")
+    public String librarian_search(Model model) {
+        return "librarian_search.html";
+    }
+
     /*@PostMapping("/register_complete")
     public String register_complete(Credentials credentials, Model model)   {
         //newUser = User.new(5, credentials.getUsername(), credentials.getPassword(), "member");

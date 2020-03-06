@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+       <h2>HEY THIS FUKIN WORKS TOO</h2>
+
+       <div class="container">
+        <table class="table">
+            <!--<thead>
+                <tr>
+                    
+                    //<th style="text-align:center;">Available Artifacts</th>
+                </tr>
+            </thead>-->
+            <tbody>
+                <form method="GET" action="/search_results_ID">
+                    Artifact ID:
+                    <br><input type="number" name="artifactID"><br>
+                    <button type="submit">Search by ID</button>
+                </form>
+                <br>
+                <form method="GET" action="/search_results_name">
+                    Artifact name:
+                    <br><input type="text" name="artifactName"><br>
+                    <button type="submit">Search by Name</button>
+                </form>
+                <!--<tr th:each="artifacts : ${artifacts}">
+                    <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
+                </tr>-->
+                <br>
+                <tr>
+                    <a class="btn btn-primary" th:href="@{/librarian_addRemoveArtifacts}">Add/Remove artifacts</a>
+                    <!--<th style="text-align:center;">Proceed as Guest</th>-->
+               </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
+    
+</html>
