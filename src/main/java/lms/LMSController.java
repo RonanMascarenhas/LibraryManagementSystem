@@ -165,6 +165,14 @@ public class LMSController  {
         return "artifact_remove_ID.html";
     }
 
+    /*@GetMapping("/artifact_add")
+    public String artifact_add(
+        @RequestParam(name="artifactName") String artifactName, 
+        //@RequestParam(name="artifactType") String artifactType,
+        Model model) {
+            //Artifact newArtifact = new artifact(5, artifactName);
+        
+        }*/
     /*@GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
         //long artID = artifactID;

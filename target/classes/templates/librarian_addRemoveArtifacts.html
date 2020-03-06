@@ -11,6 +11,14 @@
                 </tr>
             </thead>-->
             <tbody>
+                <br>
+                <form method="GET" action="/artifact_add">
+                    Enter name of artifact to add:
+                    <br>Name:<input type="text" name="artifactName"><br>
+                    <br>Type:<input type="text" name="artifactType"><br>
+                    <button type="submit">Add</button>
+                </form>
+                <br><br>
                 <form method="GET" action="/artifact_remove_ID">
                     Choose Artifact to Remove:
                     <br><input type="number" name="artifactID"><br>
