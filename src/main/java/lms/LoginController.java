@@ -18,31 +18,24 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, String username, String password, HttpServletResponse response) throws Exception {
         model.addAttribute("title", "BlogIt: Login");
-        if (userSession.isLoginFailed()) {
-            model.addAttribute("error", "Username and Password not correct");
-            userSession.setLoginFailed(false);
+        Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
+        System.out.println(userRepository.findAll());
+        if (user.isPresent()) {
+            userSession.setUser(user.get());
+            System.out.println("LOGIN SUCCESS");
+            return "/librarian_menu";
+        } else {
+            userSession.setLoginFailed(true);
+            System.out.println("LOGIN FAILED");
+            return "index.html";
         }
-        return "login.html";
     }
 
     @GetMapping("/logout")
     public void logout(HttpServletResponse response) throws Exception {
         userSession.setUser(null);
         response.sendRedirect("/");
-    }
-
-    @PostMapping("/login")
-    public void doLogin(String username, String password, HttpServletResponse response) throws Exception {
-        Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
-        if (user.isPresent()) {
-            userSession.setUser(user.get());
-            response.sendRedirect("/");
-        } else {
-            userSession.setLoginFailed(true);
-            response.sendRedirect("/login");
-        }
-
     }
 }
