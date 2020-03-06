@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+//@PersistenceConstructor
 public class Artifact{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +14,14 @@ public class Artifact{
     //private Type contentType;
     private String name;
     //total number of artifacts
+
+    /*public Artifact (long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Artifact () {
+    }*/
 
     public long getId() {
         return id;
