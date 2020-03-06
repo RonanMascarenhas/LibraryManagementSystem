@@ -117,8 +117,22 @@ public class LMSController  {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
-        return "register.html";
+    public String register(){
+        return "/register";
+    }
+
+    @GetMapping("/register_complete")
+    public void register(Model model,  HttpServletResponse response, 
+    @RequestParam(name="username") String username,
+    @RequestParam(name="password") String password)  throws IOException {
+    
+            User newUser = new User();
+            newUser.setName(username);
+            newUser.setPassword(password);
+            newUser.setRole("member");
+            userRepository.save(newUser);
+            response.sendRedirect("/");
+       
     }
 
     @GetMapping("/librarian_menu")
