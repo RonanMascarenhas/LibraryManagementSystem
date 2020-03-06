@@ -118,9 +118,95 @@ public class LMSController  {
         return "register.html";
     }
 
+    @GetMapping("/librarian_menu")
+    public String librarian_menu(Model model) {
+        return "librarian_menu.html";
+    }
+
     /*@PostMapping("/register_complete")
     public String register_complete(Credentials credentials, Model model)   {
         //newUser = User.new(5, credentials.getUsername(), credentials.getPassword(), "member");
         //userRepository.save(newUser);
+    }*/
+
+    @GetMapping("/librarian_addRemoveArtifacts")
+    public String librarian_addRemoveArtifacts(Model model) {
+        return "librarian_addRemoveArtifacts.html";
+    }
+
+    @GetMapping("/artifact_remove_ID")
+    public String artifact_remove_ID(@RequestParam(name="artifactID") Long artifactID, Model model) {
+        
+        Optional artifactCheck;
+        try
+        {
+            artifactCheck = artifactRepository.findById(artifactID);
+        } 
+        catch (Exception e)
+        {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "artifact_not_found.html";
+        }
+
+        if(artifactCheck.isPresent() == false) {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "artifact_not_found.html";
+        }
+        artifactRepository.deleteById(artifactID);
+        //Artifact artifact = artifactRepository.getOne(artifactID);
+        model.addAttribute("message","Artifact has been successfully removed" );
+        //model.addAttribute("name", artifact.getName());
+        //model.addAttribute("artifact", artifact);
+        //String artifactName = artifact.getName();
+        //System.out.print(artifactName);
+
+        return "artifact_remove_ID.html";
+    }
+
+    /*@GetMapping("/search_results_ID")
+    public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
+        //long artID = artifactID;
+        //Long artIDWrap = artID;
+        //if artifactID
+        Optional artifactCheck;
+        try
+        {
+            artifactCheck = artifactRepository.findById(artifactID);
+        } 
+        catch (Exception e)
+        {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "search_results.html";
+        }
+
+        //boolean isEqual = maybe
+        if(artifactCheck.isPresent() == false) {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "search_results.html";
+        }
+
+        Artifact artifact = artifactRepository.getOne(artifactID);
+        model.addAttribute("message","Match found:" );
+        model.addAttribute("name", artifact.getName());
+        model.addAttribute("artifact", artifact);
+        //String artifactName = artifact.getName();
+        //System.out.print(artifactName);
+        return "search_results.html";
+
+        //artifactRepository.find
+        //Long artID = artifactID;
+        //Optional isArtifact = artifactRepository.findById(artifactID);
+        //Long nullCheck = artifact.getId();
+        /*if (isArtifact == null) {
+        //(artifact.getId() == 0 || artifact.getName() == null) {
+            model.addAttribute("message",
+            "There were no matching results for your search" );
+            return "search_results.html";
+        }
+        else    {
     }*/
 }

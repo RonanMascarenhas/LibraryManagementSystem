@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <body>
-       <h2>HEY THIS FUKIN WORKS TOO</h2>
 
        <div class="container">
         <table class="table">
@@ -12,25 +11,26 @@
                 </tr>
             </thead>-->
             <tbody>
-                <form method="GET" action="/search_results_ID">
-                    Artifact ID:
+                <form method="GET" action="/artifact_remove_ID">
+                    Choose Artifact to Remove:
                     <br><input type="number" name="artifactID"><br>
-                    <button type="submit">Search by ID</button>
+                    <button type="submit">Remove by ID</button>
                 </form>
                 <br>
+                <!--
                 <form method="GET" action="/search_results_name">
                     Artifact name:
                     <br><input type="text" name="artifactName"><br>
                     <button type="submit">Search by Name</button>
-                </form>
+                </form>-->
                 <!--<tr th:each="artifacts : ${artifacts}">
                     <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
                 </tr>-->
-                <!--G2 register to library NOT IMPLEMENTED YET-->
+                <!--G2 register to library NOT IMPLEMENTED YET
                 <br>
                 <form method="GET" action="/register">
                     Register to the Library<br>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit">Sign Up</button>-->
                 </form>
             </tbody>
         </table>
