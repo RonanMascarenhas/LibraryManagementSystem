@@ -173,9 +173,10 @@ public class LMSController  {
         @RequestParam(name="artifactName") String artifactName, 
         //@RequestParam(name="artifactType") String artifactType,
         Model model, HttpServletResponse response) throws IOException {
+            //artifactRepository.save(new Artifact(101, artifactName));
             Artifact newArtifact = new Artifact();
+            //newArtifact.setId(5);
             newArtifact.setName(artifactName);
-            newArtifact.setId(5);
             artifactRepository.save(newArtifact);
             //model.addAttribute("message", "Artifact successfully added" );
             response.sendRedirect("/");
