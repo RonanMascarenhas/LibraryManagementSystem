@@ -25,6 +25,8 @@ public class LMSController  {
     private UserSession userSession;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private LoanRepository loanRepository;
 
 
     @GetMapping("/")
@@ -121,7 +123,7 @@ public class LMSController  {
         return "/register";
     }
 
-    @GetMapping("/register_complete")
+    @PostMapping("/register_complete")
     public String register(Model model,  HttpServletResponse response, 
     @RequestParam(name="username") String username,
     @RequestParam(name="password") String password)  throws IOException {
@@ -131,8 +133,20 @@ public class LMSController  {
             newUser.setPassword(password);
             newUser.setRole("member");
             userRepository.save(newUser);
-            return ("/index");
+            return ("/register_complete");
        
+    }
+
+    @GetMapping("/member_menu")
+    public String member_menu(Model model) {
+        return "member_menu.html";
+    }
+
+    @GetMapping("/member_view_loans")
+    public String member_view_loans(Model model) {
+        //loanRepository.findAllById(ids)
+        
+        return "member_view_loans.html";
     }
 
     @GetMapping("/librarian_menu")
