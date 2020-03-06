@@ -122,7 +122,7 @@ public class LMSController  {
     }
 
     @GetMapping("/register_complete")
-    public void register(Model model,  HttpServletResponse response, 
+    public String register(Model model,  HttpServletResponse response, 
     @RequestParam(name="username") String username,
     @RequestParam(name="password") String password)  throws IOException {
     
@@ -131,7 +131,7 @@ public class LMSController  {
             newUser.setPassword(password);
             newUser.setRole("member");
             userRepository.save(newUser);
-            response.sendRedirect("/");
+            return ("/index");
        
     }
 
