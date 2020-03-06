@@ -25,6 +25,8 @@ public class LMSController  {
     private UserSession userSession;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private LoanRepository loanRepository;
 
 
     @GetMapping("/")
@@ -138,6 +140,13 @@ public class LMSController  {
     @GetMapping("/member_menu")
     public String member_menu(Model model) {
         return "member_menu.html";
+    }
+
+    @GetMapping("/member_view_loans")
+    public String member_view_loans(Model model) {
+        //loanRepository.findAllById(ids)
+        
+        return "member_view_loans.html";
     }
 
     @GetMapping("/librarian_menu")
