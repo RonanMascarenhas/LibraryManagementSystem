@@ -25,7 +25,10 @@ public class User{
         
     }*/
 
-    public Long getId() {
+    public User(int i, String username2, String password2, String string) {
+	}
+
+	public Long getId() {
         return id;
     }
 

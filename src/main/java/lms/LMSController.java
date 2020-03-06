@@ -118,9 +118,19 @@ public class LMSController  {
         return "register.html";
     }
 
+    @GetMapping("/librarian_menu")
+    public String librarian_menu(Model model) {
+        return "librarian_menu.html";
+    }
+
     /*@PostMapping("/register_complete")
     public String register_complete(Credentials credentials, Model model)   {
         //newUser = User.new(5, credentials.getUsername(), credentials.getPassword(), "member");
         //userRepository.save(newUser);
     }*/
+
+    @GetMapping("/librarian_addRemoveArtifacts")
+    public String librarian_addRemoveArtifacts(Model model) {
+        return "librarian_addRemoveArtifacts.html";
+    }
 }
