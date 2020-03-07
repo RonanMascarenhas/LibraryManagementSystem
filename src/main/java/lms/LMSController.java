@@ -94,32 +94,21 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/search_results_name")
-    public String search_results_name(@RequestParam(name="artifactName") String artifactName, Model model)   {
-        Artifact artifactCheck;
-        try
-        {
-            artifactCheck = artifactRepository.findByName(artifactName);
-        } 
-        catch (Exception e)
-        {
+    public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
+        
+        Artifact artifactCheck = artifactRepository.findByName(artifactName);
+
+        if(artifactCheck != null){
+            model.addAttribute("message","Match found:" );
+            model.addAttribute("name", artifactCheck.getName());
+            model.addAttribute("artifact", artifactCheck);
+            return "search_results.html"; 
+        }
+        else {
             model.addAttribute("message",
             "There were no matching results for your search" );
             return "search_results.html";
         }
-
-        /*if(artifactCheck.isPresent() == false) {
-            model.addAttribute("message",
-            "There were no matching results for your search" );
-            return "search_results.html";
-        }*/
-
-        //Artifact artifact = artifactRepository.getOne(artifactID);
-        model.addAttribute("message","Match found:" );
-        model.addAttribute("name", artifactCheck.getName());
-        model.addAttribute("artifact", artifactCheck);
-        //String artifactName = artifact.getName();
-        //System.out.print(artifactName);
-        return "search_results.html";
     }
 
     @GetMapping("/register")
