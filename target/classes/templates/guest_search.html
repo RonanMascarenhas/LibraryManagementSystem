@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Guest Page</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
-        <link rel="stylesheet" type="text/css" href="css/guest_style.css">
-        <link rel="stylesheet" type="text/css" href="css/common.css">
-    </head>
-    
+    <div th:replace="common/head.html"></div>  
+
     <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
         <div class="container rounded" style="background-color: white; margin-top: 5%;">
             <div class="row">
-                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><img id=logo src="images/logo.png" height="100%" width="auto"></div>
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
                 <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
                         <div class="row">
                             <div class="col-xs-10"><h1 class="title">LMS</h1></div>
@@ -22,7 +17,7 @@
                         </div>
                 </div>
                 <div class="col-lg-5">&nbsp;</div>
-                <div class="col-lg-2 mx-auto"><a href="/register"><button type="button" class="btn btn-primary sign_up">Sign Up!</button></a></div>
+                <div class="col-lg-2 mx-auto"><a href="/register"><button type="button" class="button_spacer btn btn-primary sign_up">Sign Up!</button></a></div>
             </div>
 
             <div class="row">
@@ -35,14 +30,19 @@
                                     <div class="form-groups">
                                         <label for="artID">Search for an Artifact</label>
                                         <input type="number" class="form-control" name="artifactID" id="artID" placeholder="Artifact Id">
-                                        <button type="submit" class=" btn btn-primary">Search</button>
+                                        <button type="submit" class=" btn btn-primary button_spacer">Search</button>
                                     </div>
                                 </form>
                                 <form method="GET" action="/search_results_name">
                                     <div class="form-groups">
                                         <label for="artName">Search for an Artifact</label>
+<<<<<<< HEAD
+                                        <input type="text" name="artifactName"class="form-control" id="artName" placeholder="Artifact Name">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Search</button>
+=======
                                         <input type="text" class="form-control" name="artifactName" id="artName" placeholder="Artifact Name">
                                         <button type="submit" class=" btn btn-primary">Search</button>
+>>>>>>> c2fc1f534589dd8ffc953af54c1451371ba96b9c
                                     </div>
                                 </form>
                             </div>
