@@ -1,30 +1,56 @@
-<!--table of contents menu for member logged in-->
-
 <!DOCTYPE html>
 <html>
-    <body>
-        <div>
-            <a href="/member_view_loans">View My Loans</a>
-        </div>
-        
-        <div>
-            <a href="/member_reserve_item"><button>Resere an item</button></a>
-        </div>    
+    <div th:replace="common/head.html"></div>  
 
-        <div>
-            <a href="/member_test">member search</a>
-        </div>
+    <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
+        <div class="container rounded" style="background-color: white; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
+                <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-10"><h1 class="title">LMS</h1></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10"><p style="font-size: x-small;">Library Managment System</p></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                </div>
+                <div class="col-lg-5">&nbsp;</div>
+                <div class="col-lg-2 mx-auto"><a href="/register"><button type="button" class="button_spacer btn btn-primary sign_up">Sign Up!</button></a></div>
+            </div>
 
-
-
-        
-        <!--<tr>
-            <a class="btn btn-primary" th:href="@{/librarian_search}">Search Artifacts</a>
-            <th style="text-align:center;">Proceed as Guest</th>
-        </tr>
-        <tr>
-            <a class="btn btn-primary" th:href="@{/librarian_addRemoveArtifacts}">Add/Remove Artifacts</a>
-            <th style="text-align:center;">Proceed as Guest</th>
-        </tr>-->
-   </body>
+            <div class="row">
+                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style="display: block; text-align: center; margin-top: 10%;" >
+                                <a href="/member_view_loans"><button type="button" class="btn btn-primary button_spacer">View My Loans</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style="display: block; text-align: center; margin-top: 10%;" >
+                                <a href="/member_reserve_item"><button type="button" class="btn btn-primary button_spacer">Reserve An Item</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style="display: block; text-align: center; margin-top: 10%;">
+                                <a href="/member_search"><button type="button" class="btn btn-primary button_spacer">Search for an item</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+    </body>
 </html>
