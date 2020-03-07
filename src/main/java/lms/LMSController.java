@@ -168,8 +168,8 @@ public class LMSController {//implements Iterable<T> {
         int idIndex = listLoans.lastIndexOf(artifactID);
 
         if (idIndex == -1)  {
-            //no previous record of item was found in loanRepo
-            model.addAttribute("message", "Not reserved yet - We can reserve it!");
+            //no previous record of item was found in loanRepo - not been loaned out yet
+            model.addAttribute("message", "Your item has been reserved");
             System.out.println("Not reserved yet - We can reserve it!");
             Loan newLoan = new Loan();
             newLoan.setArtifactid(artifactID);
@@ -180,19 +180,31 @@ public class LMSController {//implements Iterable<T> {
         else    {
             Loan currentLoan = listLoans.get(idIndex);
             if (currentLoan.getReloaned() == false) {
-                model.addAttribute("message", "Your item has been reserved");
-                System.out.println("Not reserved yet - We can reserve it!");
-                Loan newLoan = new Loan();
+                //item has been previously loaned but has not been reserved
+                model.addAttribute("message", "Item out on loan - are you sure you want to reserve it?");
+                System.out.println("On loan but not reserved yet - We can reserve it!");
+                return "resrve_search_results";     //should bring up confirmation screen - M4
+                /*Loan newLoan = new Loan();
                 newLoan.setArtifactid(artifactID);
                 newLoan.setReloaned(false);
-                loanRepository.save(newLoan);
+                loanRepository.save(newLoan);*/
             }
             else    {
+                //item is currently reserved - cant loan it
                 model.addAttribute("message", "Item cannot be reserved - has already been reloaned");
                 System.out.println("Item already reserved :(");
             }
         }
+        return "reserve_search_results.html";
+    }
+
+
+        @GetMapping("/member_reserve_confirm")
+        public String member_reserve_confirm(Model model) {
+        //loanRepository.find
         
+        return "member_reserve_confirm.html";
+    }
 
         //ids.iterator().
         //ids.add(artifactID);
@@ -209,8 +221,6 @@ public class LMSController {//implements Iterable<T> {
         loanRepository.findAllById(artifactID);
         //loanRepository.find*/
         
-        return "reserve_search_results.html";
-    }
 
     @GetMapping("/librarian_menu")
     public String librarian_menu(Model model) {
