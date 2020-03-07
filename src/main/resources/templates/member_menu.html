@@ -2,17 +2,22 @@
 
 <!DOCTYPE html>
 <html>
-    <tbody>
+    <body>
+        <div>
+            <a href="/member_view_loans">View My Loans</a>
+        </div>
         
-        <tr>
-            <a class="btn btn-primary" th:href="@{/member_view_loans}">View My Loans</a>
-            <th style="text-align:center;"></th>
-        </tr>
-        <tr>
-            <a class="btn btn-primary" th:href="@{/member_reserve_item}">Reserve An Item</a>
-            <th style="text-align:center;"></th>
-        </tr>
+        <div>
+            <a href="/member_reserve_item"><button>Resere an item</button></a>
+        </div>    
 
+        <div>
+            <a href="/member_test">member search</a>
+        </div>
+
+
+
+        
         <!--<tr>
             <a class="btn btn-primary" th:href="@{/librarian_search}">Search Artifacts</a>
             <th style="text-align:center;">Proceed as Guest</th>
@@ -21,5 +26,5 @@
             <a class="btn btn-primary" th:href="@{/librarian_addRemoveArtifacts}">Add/Remove Artifacts</a>
             <th style="text-align:center;">Proceed as Guest</th>
         </tr>-->
-   </tbody>
+   </body>
 </html>
