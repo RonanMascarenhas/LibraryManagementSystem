@@ -94,32 +94,21 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/search_results_name")
-    public String search_results_name(@RequestParam(name="artifactName") String artifactName, Model model)   {
-        Artifact artifactCheck;
-        try
-        {
-            artifactCheck = artifactRepository.findByName(artifactName);
-        } 
-        catch (Exception e)
-        {
+    public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
+        
+        Artifact artifactCheck = artifactRepository.findByName(artifactName);
+
+        if(artifactCheck != null){
+            model.addAttribute("message","Match found:" );
+            model.addAttribute("name", artifactCheck.getName());
+            model.addAttribute("artifact", artifactCheck);
+            return "search_results.html"; 
+        }
+        else {
             model.addAttribute("message",
             "There were no matching results for your search" );
             return "search_results.html";
         }
-
-        /*if(artifactCheck.isPresent() == false) {
-            model.addAttribute("message",
-            "There were no matching results for your search" );
-            return "search_results.html";
-        }*/
-
-        //Artifact artifact = artifactRepository.getOne(artifactID);
-        model.addAttribute("message","Match found:" );
-        model.addAttribute("name", artifactCheck.getName());
-        model.addAttribute("artifact", artifactCheck);
-        //String artifactName = artifact.getName();
-        //System.out.print(artifactName);
-        return "search_results.html";
     }
 
     @GetMapping("/register")
@@ -170,11 +159,14 @@ public class LMSController {//implements Iterable<T> {
         if (idIndex == -1)  {
             //no previous record of item was found in loanRepo - not been loaned out yet
             model.addAttribute("message", "Your item has been reserved");
-            System.out.println("Not reserved yet - We can reserve it!");
+            System.out.println("No previous loans for item - We can reserve it!");
             Loan newLoan = new Loan();
             newLoan.setArtifactid(artifactID);
             newLoan.setReloaned(false);
+            User currentUser = userSession.getUser();
+            newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
+            //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
 
         else    {
