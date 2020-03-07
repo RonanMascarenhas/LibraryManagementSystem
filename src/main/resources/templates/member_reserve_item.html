@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <body>
+       <h2>Enter artifact you want to reserve:</h2>
+
+       <div class="container">
+        <table class="table">
+            <!--<thead>
+                <tr>
+                    
+                    //<th style="text-align:center;">Available Artifacts</th>
+                </tr>
+            </thead>-->
+            <tbody>
+                <form method="GET" action="/reserve_search_results">
+                    Artifact ID:
+                    <br><input type="number" name="artifactID"><br>
+                    <button type="submit">Search by ID</button>
+                </form>
+                <!--<br>
+                <form method="GET" action="/search_results_name">
+                    Artifact name:
+                    <br><input type="text" name="artifactName"><br>
+                    <button type="submit">Search by Name</button>
+                </form>
+                <tr th:each="artifacts : ${artifacts}">
+                    <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
+                </tr>-->
+                </form>
+            </tbody>
+        </table>
+    </div>
+    </body>
+    
+</html>
