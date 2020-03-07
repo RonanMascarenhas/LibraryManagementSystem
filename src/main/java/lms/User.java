@@ -13,12 +13,14 @@ public class User{
     private String username;
     private String password;
     private String role;
+    //private Long currentLoanid; 
 
     public User(Long id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        //this.currentLoanid = currentLoanid;         //keeps track of what loan is currently associated with the user - SQL ERROR
     }
 
     public User()   {
@@ -56,4 +58,12 @@ public class User{
     public void setRole(String role) {
         this.role = role;
     }
+/*
+    public Long getCurrentLoanid() {
+        return currentLoanid;
+    }
+
+    public void setCurrentLoanid(Long currentLoanid) {
+        this.currentLoanid = currentLoanid;
+    }*/
 }
