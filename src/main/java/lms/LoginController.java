@@ -18,15 +18,7 @@ public class LoginController {
     private UserRepository userRepository;
 
    
-    @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("title", "BlogIt: Login");
-        if (userSession.isLoginFailed()) {
-            model.addAttribute("error", "Username and Password not correct");
-            userSession.setLoginFailed(false);
-        }
-        return "login.html";
-    }
+
 
     @PostMapping("/login")
     public String doLogin(String username, String password, HttpServletResponse response) throws Exception {
