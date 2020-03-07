@@ -1,19 +1,11 @@
-div.mid {
-    background-color: white;
+
+.logo{
+    max-height: 100px;
+    padding-left: 0px  !important;
+    padding-right: 0px !important;
 }
 
-#mid{
-    background-color: white;
+.title {
+    font-family: "Times New Roman", Times, serif;
 }
 
-div{
-    color: white;
-}
-
-h1 {
-    color: blueviolet;
-}
-
-.title{
-    color: red;
-}
