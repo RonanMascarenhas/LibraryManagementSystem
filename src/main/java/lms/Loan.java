@@ -18,9 +18,10 @@ public class Loan{
     private long loanid;
     private long artifactid;           //tracks id of item being loaned
     private long userid;            //tracks id of user who's loaned it
+    private boolean reloaned;
     @CreationTimestamp
     private Date returnDate;              //store date in ddmmyy format
-    private boolean reloaned;
+
     //private Type contentType;
     //total number of artifacts
 
@@ -56,13 +57,13 @@ public class Loan{
         this.userid = userid;
     }
 
-    public Date getReturnDate() {
+    /*public Date getReturnDate() {
         return returnDate;
     }
 
     public void setReturnDate(Date returnDate)   {
         this.returnDate = returnDate;
-    }
+    }*/
 
     public boolean getReloaned() {
         return reloaned;

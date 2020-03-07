@@ -2,8 +2,10 @@ package lms;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +20,7 @@ import lms.User;
 import lms.Artifact;
 
 @Controller
-public class LMSController  {
+public class LMSController {//implements Iterable<T> {
     @Autowired
     private ArtifactRepository artifactRepository;
     @Autowired
@@ -27,6 +29,8 @@ public class LMSController  {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
+    //@Autowired
+    //private LookupTable tables;
 
 
     @GetMapping("/")
@@ -144,9 +148,66 @@ public class LMSController  {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
-        //loanRepository.findAllById(ids)
+        //loanRepository.find
         
         return "member_view_loans.html";
+    }
+
+    @GetMapping("/member_reserve_item")
+    public String member_reserve_item(Model model) {
+        //loanRepository.find
+        
+        return "member_reserve_item.html";
+    }
+
+    @GetMapping("/reserve_search_results")
+    public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
+        ArrayList<Long> ids = new ArrayList<Long>();
+        //store id in array list
+        //arraylist method for last id,
+        //loanrepo search repo for matching loanids
+        //return list of matching loanids
+        //ids.add(artifactID);
+        //int idIndex = ids.indexOf(artifactID);
+        List<Loan> listLoans; //= new List<Loan>();
+        listLoans = loanRepository.findAll();
+        int idIndex = listLoans.lastIndexOf(artifactID);
+        
+        if (idIndex == -1)  {
+            //no previous record of item was found in loanRepo
+            model.addAttribute("message", "Not reserved yet - We can reserve it!");
+            System.out.println("Not reserved yet - We can reserve it!");
+        }
+
+        else    {
+            Loan currentLoan = listLoans.get(idIndex);
+            if (currentLoan.getReloaned() == false) {
+                model.addAttribute("message", "Not reserved yet - We can reserve it!");
+                System.out.println("Not reserved yet - We can reserve it!");
+            }
+            else    {
+                model.addAttribute("message", "Item already reserved :(");
+                System.out.println("Item already reserved :(");
+            }
+        }
+        
+
+        //ids.iterator().
+        //ids.add(artifactID);
+        //Iterable<Long> iterable;
+        //iterable.iterator() = ids.iterator();
+        //iterable = ids.iterator();
+        //loanRepository.findAll(Example<S> artifactID);
+        
+        
+        /*tables.artifactLoanTable.forEach(long id)   {
+            if (artifac
+        };
+        Iterable<Long> listids = new ArrayList(artifactID);
+        loanRepository.findAllById(artifactID);
+        //loanRepository.find*/
+        
+        return "reserve_search_results.html";
     }
 
     @GetMapping("/librarian_menu")

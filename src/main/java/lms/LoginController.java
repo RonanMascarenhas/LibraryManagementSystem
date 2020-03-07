@@ -37,7 +37,7 @@ public class LoginController {
                 return ("/librarian_menu");
             }
             else if(userSession.getUser().getRole().equals("member")){
-                return ("/test");
+                return ("/member_menu");
             }
             else{
                 return ("/index");
