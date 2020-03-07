@@ -159,11 +159,14 @@ public class LMSController {//implements Iterable<T> {
         if (idIndex == -1)  {
             //no previous record of item was found in loanRepo - not been loaned out yet
             model.addAttribute("message", "Your item has been reserved");
-            System.out.println("Not reserved yet - We can reserve it!");
+            System.out.println("No previous loans for item - We can reserve it!");
             Loan newLoan = new Loan();
             newLoan.setArtifactid(artifactID);
             newLoan.setReloaned(false);
+            User currentUser = userSession.getUser();
+            newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
+            //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
 
         else    {
