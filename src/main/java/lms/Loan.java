@@ -20,7 +20,7 @@ public class Loan{
     private long userid;            //tracks id of user who's loaned it
     private boolean reloaned;
     @CreationTimestamp
-    private Date returnDate;              //store date in ddmmyy format
+    private Date dateLoaned;              //store date in ddmmyy format
 
     //private Type contentType;
     //total number of artifacts

@@ -163,30 +163,32 @@ public class LMSController {//implements Iterable<T> {
     @GetMapping("/reserve_search_results")
     public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
         ArrayList<Long> ids = new ArrayList<Long>();
-        //store id in array list
-        //arraylist method for last id,
-        //loanrepo search repo for matching loanids
-        //return list of matching loanids
-        //ids.add(artifactID);
-        //int idIndex = ids.indexOf(artifactID);
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
         int idIndex = listLoans.lastIndexOf(artifactID);
-        
+
         if (idIndex == -1)  {
             //no previous record of item was found in loanRepo
             model.addAttribute("message", "Not reserved yet - We can reserve it!");
             System.out.println("Not reserved yet - We can reserve it!");
+            Loan newLoan = new Loan();
+            newLoan.setArtifactid(artifactID);
+            newLoan.setReloaned(false);
+            loanRepository.save(newLoan);
         }
 
         else    {
             Loan currentLoan = listLoans.get(idIndex);
             if (currentLoan.getReloaned() == false) {
-                model.addAttribute("message", "Not reserved yet - We can reserve it!");
+                model.addAttribute("message", "Your item has been reserved");
                 System.out.println("Not reserved yet - We can reserve it!");
+                Loan newLoan = new Loan();
+                newLoan.setArtifactid(artifactID);
+                newLoan.setReloaned(false);
+                loanRepository.save(newLoan);
             }
             else    {
-                model.addAttribute("message", "Item already reserved :(");
+                model.addAttribute("message", "Item cannot be reserved - has already been reloaned");
                 System.out.println("Item already reserved :(");
             }
         }
