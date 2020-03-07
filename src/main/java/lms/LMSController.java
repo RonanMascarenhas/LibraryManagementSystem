@@ -179,11 +179,12 @@ public class LMSController {//implements Iterable<T> {
         }
         //there is previous record of item being loaned
         else    {
-            int loanIndex = (int)latestLoan;
+            int loanIndex = ((int)latestLoan - 1);
             Loan currentLoan = listLoans.get(loanIndex);
             if (currentLoan.getReloaned() == false) {
                 //item has been previously loaned but has not been reserved
                 model.addAttribute("message", "Item out on loan - are you sure you want to reserve it?");
+                model.addAttribute("artifactID", artifactID);
                 System.out.println("On loan but not reloaned yet - We can reserve it!");
                 return "member_reserve_confirm";     //should bring up confirmation screen - M4
                 /*Loan newLoan = new Loan();
@@ -200,12 +201,17 @@ public class LMSController {//implements Iterable<T> {
         return "reserve_search_results.html";
     }
 
-
-        @GetMapping("/member_reserve_confirm")
-        public String member_reserve_confirm(Model model) {
+    @PostMapping("/reserve_search_results")
+    public String member_reserve_confirm(Model model) {
         //loanRepository.find
-        
-        return "member_reserve_confirm.html";
+        model.addAttribute("message", "Your item has been reserved");
+        //NOTE: Unable to get artifactID from here, cant assign it to loan record
+            Loan newLoan = new Loan();
+            newLoan.setReloaned(false);
+            User currentUser = userSession.getUser();
+            newLoan.setUserid(currentUser.getId());
+            loanRepository.save(newLoan);
+        return "reserve_search_results.html";
     }
 
         //ids.iterator().
