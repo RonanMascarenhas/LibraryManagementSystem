@@ -151,12 +151,21 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/reserve_search_results")
     public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
-        ArrayList<Long> ids = new ArrayList<Long>();
+        //ArrayList<Long> listLoanids = new ArrayList<Long>();
+        long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
-        int idIndex = listLoans.lastIndexOf(artifactID);
+        Iterator<Loan> listIterator = listLoans.iterator();
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getArtifactid() == artifactID)  {
+                latestLoan = currentLoan.getLoanid();
+            }
+        }
+        //int idIndex = listLoans.
+        //int idIndex = listLoans.lastIndexOf(artifactID);
 
-        if (idIndex == -1)  {
+        if (latestLoan == -1)  {
             //no previous record of item was found in loanRepo - not been loaned out yet
             model.addAttribute("message", "Your item has been reserved");
             System.out.println("No previous loans for item - We can reserve it!");
@@ -168,14 +177,15 @@ public class LMSController {//implements Iterable<T> {
             loanRepository.save(newLoan);
             //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
-
+        //there is previous record of item being loaned
         else    {
-            Loan currentLoan = listLoans.get(idIndex);
+            int loanIndex = (int)latestLoan;
+            Loan currentLoan = listLoans.get(loanIndex);
             if (currentLoan.getReloaned() == false) {
                 //item has been previously loaned but has not been reserved
                 model.addAttribute("message", "Item out on loan - are you sure you want to reserve it?");
-                System.out.println("On loan but not reserved yet - We can reserve it!");
-                return "resrve_search_results";     //should bring up confirmation screen - M4
+                System.out.println("On loan but not reloaned yet - We can reserve it!");
+                return "member_reserve_confirm";     //should bring up confirmation screen - M4
                 /*Loan newLoan = new Loan();
                 newLoan.setArtifactid(artifactID);
                 newLoan.setReloaned(false);
