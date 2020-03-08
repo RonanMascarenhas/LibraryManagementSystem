@@ -236,7 +236,7 @@ public class LMSController {//implements Iterable<T> {
                     System.out.println("No previous loans for item/Item exists - We can reserve it!");
                     Loan newLoan = new Loan();
                     newLoan.setArtifactid(artifactID);
-                    newLoan.setReloaned(false);
+                    newLoan.setReserved(true);
                     User currentUser = userSession.getUser();
                     newLoan.setUserid(currentUser.getId());
                     loanRepository.save(newLoan);
@@ -268,21 +268,39 @@ public class LMSController {//implements Iterable<T> {
             int loanIndex = ((int)latestLoan - 1);
             Loan currentLoan = listLoans.get(loanIndex);
             //item is out on loan AND has already been reserved (maybe even by the current user) - cannot reserve 
-            if (currentLoan.getReloaned() == true || currentLoan.getUserid() == userSession.getUser().getId()) {    
-                model.addAttribute("message", "Item cannot be reserved - is out on loan and has already been reserved");
-                model.addAttribute("artifactID", artifactID);
-                System.out.println("On loan AND has already been reserved - cannot reserve :(");
-            }
-            else if (currentLoan.getReloaned() == false) {
-                //item is out on loan but has not been reserved
-                model.addAttribute("message", "Item out on loan - are you sure you want to reserve it?");
-                model.addAttribute("artifactID", artifactID);
-                System.out.println("On loan but not reloaned yet - We can reserve it!");
-                return "member_reserve_confirm";     //should bring up confirmation screen - M4
-                /*Loan newLoan = new Loan();
-                newLoan.setArtifactid(artifactID);
-                newLoan.setReloaned(false);
-                loanRepository.save(newLoan);*/
+            if (currentLoan.getReserved() == true)
+                /*current user is trying to reserve same item again!
+                if (currentLoan.getUserid() == userSession.getUser().getId()) {
+                    model.addAttribute("message", "You have already reserved this item!");
+                    model.addAttribute("artifactID", artifactID);
+                    System.out.println("Item already reserved by current member!");
+                }*/
+                //another user has already reserved the item
+               //else
+               {    
+                    model.addAttribute("message", "Item cannot be reserved - is out on loan and has already been reserved");
+                    model.addAttribute("artifactID", artifactID);
+                    System.out.println("On loan AND has already been reserved - cannot reserve :(");
+                }
+
+            else if (currentLoan.getReserved() == false) {
+                //current user is trying to reserve same item again!
+                if (currentLoan.getUserid() == userSession.getUser().getId()) {
+                    model.addAttribute("message", "You have already reserved this item!");
+                    model.addAttribute("artifactID", artifactID);
+                    System.out.println("Item already reserved by current member!");
+                }
+                else    {
+                    //item is out on loan but has not been reserved
+                    model.addAttribute("message", "Item not reserved yet - are you sure you want to reserve it?");
+                    model.addAttribute("artifactID", artifactID);
+                    System.out.println("On loan but not reloaned yet - We can reserve it!");
+                    return "member_reserve_confirm";     //should bring up confirmation screen - M4
+                    /*Loan newLoan = new Loan();
+                    newLoan.setArtifactid(artifactID);
+                    newLoan.setReloaned(false);
+                    loanRepository.save(newLoan);*/
+                }
             }
             else    {
                 //item is currently reserved - unkown why
@@ -300,7 +318,7 @@ public class LMSController {//implements Iterable<T> {
         //NOTE: Unable to get artifactID from here, cant assign it to loan record
             Loan newLoan = new Loan();
             //item is being reserved - cant be reserved again
-            newLoan.setReloaned(true);
+            newLoan.setReserved(true);
             User currentUser = userSession.getUser();
             newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
