@@ -1,28 +1,6 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-    <body>
-        <div>
-            <a href="/member_view_loans"><button>View My Loans</button></a>
-        </div>
-        
-        <div>
-            <a href="/member_reserve_item"><button>Reserve an item</button></a>
-        </div>    
-
-        <div>
-            <form action="/member_search">
-                <button type="submit">Member Search</button>
-            </form>
-        </div>
-        
-        <div>
-            <a href="/index"><button>Logout</button></a>
-        </div> 
-
-=======
     <div th:replace="common/head.html"></div>  
->>>>>>> c31a4297ff43acf045eb55e41e730f454246622f
 
     <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
         <div class="container rounded" style="background-color: white; margin-top: 5%;">
@@ -38,8 +16,9 @@
                             <div class="col-xs-2">&nbsp;</div>
                         </div>
                 </div>
-                <div class="col-lg-5">&nbsp;</div>
-            </div>
+            <div class="col-lg-5">&nbsp;</div>
+            <div class="col-lg-2 mx-auto"><a href="/logout"><button type="button" class="button_spacer btn btn-primary sign_up">Log out</button></a></div>
+        </div>
 
             <div class="row">
                 <div class="col-lg-1">&nbsp;</div>
