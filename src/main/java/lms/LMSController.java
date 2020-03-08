@@ -96,7 +96,7 @@ public class LMSController {//implements Iterable<T> {
     @GetMapping("/search_results_name")
     public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
         
-        Artifact artifactCheck = artifactRepository.findByName(artifactName);
+        Artifact artifactCheck = artifactRepository.findByName(artifactName.toLowerCase());
 
         if(artifactCheck != null){
             model.addAttribute("message","Match found:" );
@@ -137,8 +137,21 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
-        //loanRepository.find
-        
+        List<Loan> listLoans; //= new List<Loan>();
+        ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
+        ArrayList<Long> artifactids = new ArrayList<Long>();
+        User currentUser = userSession.getUser();
+        listLoans = loanRepository.findAll();
+        Iterator<Loan> listIterator = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getUserid() == currentUser.getId())  {
+                artifactids.add(currentLoan.getArtifactid());
+                //listUsersLoans.add(currentLoan);
+            }
+        }
+        model.addAttribute("artifactids", artifactids);
         return "member_view_loans.html";
     }
 
@@ -290,7 +303,7 @@ public class LMSController {//implements Iterable<T> {
             //artifactRepository.save(new Artifact(101, artifactName));
             Artifact newArtifact = new Artifact();
             //newArtifact.setId(5);
-            newArtifact.setName(artifactName);
+            newArtifact.setName(artifactName.toLowerCase());
             artifactRepository.save(newArtifact);
             //model.addAttribute("message", "Artifact successfully added" );
             response.sendRedirect("/");
