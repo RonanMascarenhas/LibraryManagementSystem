@@ -58,12 +58,4 @@ public class User{
     public void setRole(String role) {
         this.role = role;
     }
-/*
-    public Long getCurrentLoanid() {
-        return currentLoanid;
-    }
-
-    public void setCurrentLoanid(Long currentLoanid) {
-        this.currentLoanid = currentLoanid;
-    }*/
 }
