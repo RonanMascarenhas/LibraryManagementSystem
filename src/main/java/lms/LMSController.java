@@ -123,21 +123,28 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/register")
     public String register(){
-        return "/register";
+        return "register.html";
     }
 
     @PostMapping("/register_complete")
     public String register(Model model,  HttpServletResponse response, 
     @RequestParam(name="username") String username,
     @RequestParam(name="password") String password)  throws IOException {
-    
+
+        System.out.println(username);
+        System.out.println(password);
+
+        if(username == "" || password == ""){
+            return "/register";
+        }
+        else{
             User newUser = new User();
             newUser.setName(username);
             newUser.setPassword(password);
             newUser.setRole("member");
             userRepository.save(newUser);
             return ("/register_complete");
-       
+        }
     }
 
     @GetMapping("/member_menu")
