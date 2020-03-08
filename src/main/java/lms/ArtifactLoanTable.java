@@ -1,4 +1,4 @@
-package lms;
+/*package lms;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class ArtifactLoanTable implements Serializable {
+public class ArtifactLoanTable implements Serializable 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -48,4 +48,4 @@ public class ArtifactLoanTable implements Serializable {
         artifactLoanTable.put(loanid, artifactid);
     }
 
-}
+}*/
