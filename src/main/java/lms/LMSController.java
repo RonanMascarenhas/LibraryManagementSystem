@@ -55,8 +55,10 @@ public class LMSController {//implements Iterable<T> {
         //model.addAttribute("artifacts", artifactRepository.findAll());
         //enter name of artifact you want
         //match input name with db artifact name (search db)
+
         return "member_search.html";  
     }
+    
 
 
     @GetMapping("/search_results_ID")
@@ -76,8 +78,11 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
+                return "librarian_search_results.html";
             }
         }
 
@@ -88,8 +93,11 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
+                return "librarian_search_results.html";
             }
         }
 
@@ -102,8 +110,11 @@ public class LMSController {//implements Iterable<T> {
         if(userSession.getUser() == null){
             return "guest_search_results.html";
         }
+        else if (userSession.getUser().getRole().equals("member")){
+            return "member_search_results.html";
+        }
         else {
-            return "search_results.html";
+            return "librarian_search_results.html";
         }
 
         //artifactRepository.find
@@ -132,9 +143,12 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
-            } 
+                return "librarian_search_results.html";
+            }
         }
         else {
             model.addAttribute("message",
@@ -142,8 +156,11 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
+                return "librarian_search_results.html";
             }
         }
     }
@@ -160,9 +177,12 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
-            } 
+                return "librarian_search_results.html";
+            }
         }
         else {
             model.addAttribute("message",
@@ -170,8 +190,11 @@ public class LMSController {//implements Iterable<T> {
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
             else {
-                return "search_results.html";
+                return "librarian_search_results.html";
             }
         }
     }
@@ -379,7 +402,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_search")
     public String librarian_search(Model model) {
-        return "/librarian_menu";
+        return "librarian_search.html";
     }
 
     /*@PostMapping("/register_complete")
