@@ -11,7 +11,7 @@ public class Artifact{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    //private Type contentType;
+    private String type;
     private String name;
     //total number of artifacts
 
@@ -29,6 +29,14 @@ public class Artifact{
 
     public void setId(long id)   {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type)   {
+        this.type = type;
     }
 
     /*public Type getContentType() {
