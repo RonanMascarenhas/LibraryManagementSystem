@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.PersistenceUnit;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class LMSController {//implements Iterable<T> {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
-    //@Autowired
-    //private LookupTable tables;
+    @Autowired
+    private ArtifactLoanTable artLoanTable;
 
 
     @GetMapping("/")
@@ -196,6 +197,8 @@ public class LMSController {//implements Iterable<T> {
             User currentUser = userSession.getUser();
             newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
+            //add entry into lookup table
+            artLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
             //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
         //there is previous record of item being loaned
@@ -232,6 +235,8 @@ public class LMSController {//implements Iterable<T> {
             User currentUser = userSession.getUser();
             newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
+            //add entry into lookup table
+            artLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
         return "reserve_search_results.html";
     }
 
