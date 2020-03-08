@@ -178,9 +178,9 @@ public class LMSController {//implements Iterable<T> {
         long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
-        Iterator<Loan> listIterator = listLoans.iterator();
-        while (listIterator.hasNext() == true) {
-            Loan currentLoan = listIterator.next();
+        Iterator<Loan> listLoanIterator = listLoans.iterator();
+        while (listLoanIterator.hasNext() == true) {
+            Loan currentLoan = listLoanIterator.next();
             if (currentLoan.getArtifactid() == artifactID)  {
                 latestLoan = currentLoan.getLoanid();
             }
@@ -188,16 +188,44 @@ public class LMSController {//implements Iterable<T> {
         //int idIndex = listLoans.
         //int idIndex = listLoans.lastIndexOf(artifactID);
 
-        if (latestLoan == -1)  {
+        //no previous record of item was found in loanRepo - need to check if item exists
+        if (latestLoan == -1)  { 
+            boolean artifactExists = false;
+            List<Artifact> listArtifacts;
+            listArtifacts = artifactRepository.findAll();
+            Iterator<Artifact> listArtIterator = listArtifacts.iterator();
+            while (listArtIterator.hasNext() == true) {
+                Artifact currentArtifact = listArtIterator.next();
+                if (currentArtifact.getId() == artifactID)  {
+                    //artifact exists - we can reserve it
+                    artifactExists = true;
+                    model.addAttribute("message", "Your item has been reserved");
+                    System.out.println("No previous loans for item/Item exists - We can reserve it!");
+                    Loan newLoan = new Loan();
+                    newLoan.setArtifactid(artifactID);
+                    newLoan.setReloaned(false);
+                    User currentUser = userSession.getUser();
+                    newLoan.setUserid(currentUser.getId());
+                    loanRepository.save(newLoan);
+                    return "reserve_search_results.html";
+                }
+            }
+
+            if(artifactExists == false) {
+                //input artifact id doesnt belong to existing artifact - cannot reserve
+                model.addAttribute("message", "Item does not exist - please make sure you have entered the correct details");
+                System.out.println("Item doesn't exist :(");
+                return "reserve_search_results.html";
+            }
             //no previous record of item was found in loanRepo - not been loaned out yet
-            model.addAttribute("message", "Your item has been reserved");
+            /*model.addAttribute("message", "Your item has been reserved");
             System.out.println("No previous loans for item - We can reserve it!");
             Loan newLoan = new Loan();
             newLoan.setArtifactid(artifactID);
             newLoan.setReloaned(false);
             User currentUser = userSession.getUser();
             newLoan.setUserid(currentUser.getId());
-            loanRepository.save(newLoan);
+            loanRepository.save(newLoan);*/
             //add entry into lookup table
             //artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
             //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
