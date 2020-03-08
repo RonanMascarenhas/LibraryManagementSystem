@@ -31,10 +31,6 @@ public class LMSController {//implements Iterable<T> {
     @Autowired
     private LoanRepository loanRepository;
 
-    //@Autowired
-    //private ArtifactLoanTable artifactLoanTable;
-
-
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("title", "Library: Home");
@@ -52,7 +48,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_search")
     public String member_search(Model model) {
-        //model.addAttribute("artifacts", artifactRepository.findAll());
+
         //enter name of artifact you want
         //match input name with db artifact name (search db)
 
@@ -68,9 +64,6 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
-        //long artID = artifactID;
-        //Long artIDWrap = artID;
-        //if artifactID
         Optional artifactCheck;
         try
         {
@@ -91,7 +84,6 @@ public class LMSController {//implements Iterable<T> {
             }
         }
 
-        //boolean isEqual = maybe
         if(artifactCheck.isPresent() == false) {
             model.addAttribute("message",
             "There were no matching results for your search" );
@@ -110,8 +102,6 @@ public class LMSController {//implements Iterable<T> {
         model.addAttribute("message","Match found:" );
         model.addAttribute("name", artifact.getName());
         model.addAttribute("artifact", artifact);
-        //String artifactName = artifact.getName();
-        //System.out.print(artifactName);
         if(userSession.getUser() == null){
             return "guest_search_results.html";
         }
@@ -121,18 +111,6 @@ public class LMSController {//implements Iterable<T> {
         else {
             return "librarian_search_results.html";
         }
-
-        //artifactRepository.find
-        //Long artID = artifactID;
-        //Optional isArtifact = artifactRepository.findById(artifactID);
-        //Long nullCheck = artifact.getId();
-        /*if (isArtifact == null) {
-        //(artifact.getId() == 0 || artifact.getName() == null) {
-            model.addAttribute("message",
-            "There were no matching results for your search" );
-            return "search_results.html";
-        }
-        else    {*/
     }
 
     @GetMapping("/search_results_type")
@@ -248,7 +226,6 @@ public class LMSController {//implements Iterable<T> {
             Loan currentLoan = listIterator.next();
             if (currentLoan.getUserid() == currentUser.getId())  {
                 artifactids.add(currentLoan.getArtifactid());
-                //listUsersLoans.add(currentLoan);
             }
         }
         model.addAttribute("artifactids", artifactids);
@@ -257,14 +234,11 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_reserve_item")
     public String member_reserve_item(Model model) {
-        //loanRepository.find
-        
         return "member_reserve_item.html";
     }
 
     @GetMapping("/reserve_search_results")
     public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
-        //ArrayList<Long> listLoanids = new ArrayList<Long>();
         long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
@@ -275,8 +249,6 @@ public class LMSController {//implements Iterable<T> {
                 latestLoan = currentLoan.getLoanid();
             }
         }
-        //int idIndex = listLoans.
-        //int idIndex = listLoans.lastIndexOf(artifactID);
 
         //no previous record of item was found in loanRepo - need to check if item exists
         if (latestLoan == -1)  { 
@@ -307,18 +279,6 @@ public class LMSController {//implements Iterable<T> {
                 System.out.println("Item doesn't exist :(");
                 return "reserve_search_results.html";
             }
-            //no previous record of item was found in loanRepo - not been loaned out yet
-            /*model.addAttribute("message", "Your item has been reserved");
-            System.out.println("No previous loans for item - We can reserve it!");
-            Loan newLoan = new Loan();
-            newLoan.setArtifactid(artifactID);
-            newLoan.setReloaned(false);
-            User currentUser = userSession.getUser();
-            newLoan.setUserid(currentUser.getId());
-            loanRepository.save(newLoan);*/
-            //add entry into lookup table
-            //artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
-            //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
         //there IS a previous record of item being loaned
         else    {
@@ -326,14 +286,7 @@ public class LMSController {//implements Iterable<T> {
             Loan currentLoan = listLoans.get(loanIndex);
             //item is out on loan AND has already been reserved (maybe even by the current user) - cannot reserve 
             if (currentLoan.getReserved() == true)
-                /*current user is trying to reserve same item again!
-                if (currentLoan.getUserid() == userSession.getUser().getId()) {
-                    model.addAttribute("message", "You have already reserved this item!");
-                    model.addAttribute("artifactID", artifactID);
-                    System.out.println("Item already reserved by current member!");
-                }*/
                 //another user has already reserved the item
-               //else
                {    
                     model.addAttribute("message", "Item cannot be reserved - is out on loan and has already been reserved");
                     model.addAttribute("artifactID", artifactID);
@@ -353,10 +306,6 @@ public class LMSController {//implements Iterable<T> {
                     model.addAttribute("artifactID", artifactID);
                     System.out.println("On loan but not reloaned yet - We can reserve it!");
                     return "member_reserve_confirm";     //should bring up confirmation screen - M4
-                    /*Loan newLoan = new Loan();
-                    newLoan.setArtifactid(artifactID);
-                    newLoan.setReloaned(false);
-                    loanRepository.save(newLoan);*/
                 }
             }
             else    {
@@ -382,36 +331,12 @@ public class LMSController {//implements Iterable<T> {
             //add entry into lookup table
            // artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
         return "reserve_search_results.html";
-    }
-
-        //ids.iterator().
-        //ids.add(artifactID);
-        //Iterable<Long> iterable;
-        //iterable.iterator() = ids.iterator();
-        //iterable = ids.iterator();
-        //loanRepository.findAll(Example<S> artifactID);
-        
-        
-        /*tables.artifactLoanTable.forEach(long id)   {
-            if (artifac
-        };
-        Iterable<Long> listids = new ArrayList(artifactID);
-        loanRepository.findAllById(artifactID);
-        //loanRepository.find*/
-        
+    }   
 
     @GetMapping("/librarian_menu")
     public String librarian_menu(Model model) {
         return "librarian_menu.html";
     }
-
-    
-
-    /*@PostMapping("/register_complete")
-    public String register_complete(Credentials credentials, Model model)   {
-        //newUser = User.new(5, credentials.getUsername(), credentials.getPassword(), "member");
-        //userRepository.save(newUser);
-    }*/
 
     @GetMapping("/librarian_addRemoveArtifacts")
     public String librarian_addRemoveArtifacts(Model model) {
@@ -420,7 +345,6 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/artifact_remove_ID")
     public String artifact_remove_ID(@RequestParam(name="artifactID") Long artifactID, Model model) {
-        
         Optional artifactCheck;
         try
         {
@@ -439,13 +363,7 @@ public class LMSController {//implements Iterable<T> {
             return "artifact_not_found.html";
         }
         artifactRepository.deleteById(artifactID);
-        //Artifact artifact = artifactRepository.getOne(artifactID);
         model.addAttribute("message","Artifact has been successfully removed" );
-        //model.addAttribute("name", artifact.getName());
-        //model.addAttribute("artifact", artifact);
-        //String artifactName = artifact.getName();
-        //System.out.print(artifactName);
-
         return "artifact_remove_ID.html";
     }
 
@@ -454,9 +372,7 @@ public class LMSController {//implements Iterable<T> {
         @RequestParam(name="artifactName") String artifactName, 
         @RequestParam(name="artifactType") String artifactType,
         Model model, HttpServletResponse response) throws IOException {
-            //artifactRepository.save(new Artifact(101, artifactName));
             Artifact newArtifact = new Artifact();
-            //newArtifact.setId(5);
 
             if(artifactName == "" || artifactType == ""){
                 return "/librarian_addRemoveArtifacts";
@@ -465,7 +381,6 @@ public class LMSController {//implements Iterable<T> {
                 newArtifact.setName(artifactName.toLowerCase());
                 newArtifact.setType(artifactType.toLowerCase());
                 artifactRepository.save(newArtifact);
-                //model.addAttribute("message", "Artifact successfully added" );
                 return "/librarian_menu";
             }
         }

@@ -22,17 +22,6 @@ public class Loan{
     @CreationTimestamp
     private Date dateLoaned;              //store date in ddmmyy format
 
-    //private Type contentType;
-    //total number of artifacts
-
-    /*public Artifact (long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Artifact () {
-    }*/
-
     public long getLoanid() {
         return loanid;
     }
@@ -56,15 +45,7 @@ public class Loan{
     public void setUserid(long userid)   {
         this.userid = userid;
     }
-
-    /*public Date getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Date returnDate)   {
-        this.returnDate = returnDate;
-    }*/
-
+    
     public boolean getReserved() {
         return reserved;
     }

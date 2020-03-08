@@ -15,14 +15,6 @@ public class Artifact{
     private String name;
     //total number of artifacts
 
-    /*public Artifact (long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Artifact () {
-    }*/
-
     public long getId() {
         return id;
     }
@@ -38,14 +30,6 @@ public class Artifact{
     public void setType(String type)   {
         this.type = type;
     }
-
-    /*public Type getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(Type contentType)   {
-        this.contentType = contentType;
-    }*/
 
     public String getName() {
         return name;
