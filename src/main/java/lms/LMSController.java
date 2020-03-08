@@ -96,7 +96,7 @@ public class LMSController {//implements Iterable<T> {
     @GetMapping("/search_results_name")
     public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
         
-        Artifact artifactCheck = artifactRepository.findByName(artifactName);
+        Artifact artifactCheck = artifactRepository.findByName(artifactName.toLowerCase());
 
         if(artifactCheck != null){
             model.addAttribute("message","Match found:" );
@@ -290,7 +290,7 @@ public class LMSController {//implements Iterable<T> {
             //artifactRepository.save(new Artifact(101, artifactName));
             Artifact newArtifact = new Artifact();
             //newArtifact.setId(5);
-            newArtifact.setName(artifactName);
+            newArtifact.setName(artifactName.toLowerCase());
             artifactRepository.save(newArtifact);
             //model.addAttribute("message", "Artifact successfully added" );
             response.sendRedirect("/");
