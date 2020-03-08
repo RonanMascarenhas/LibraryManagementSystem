@@ -9,4 +9,6 @@ public interface ArtifactRepository extends JpaRepository<Artifact, Long> {
     //List<Artifact> findByName(String name);
 
     Artifact findByName(String name);
+
+	Artifact findByType(String artifactType);
 }
