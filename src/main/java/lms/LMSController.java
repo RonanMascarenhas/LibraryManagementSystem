@@ -379,7 +379,7 @@ public class LMSController {//implements Iterable<T> {
                 newArtifact.setName(artifactName.toLowerCase());
                 newArtifact.setType(artifactType.toLowerCase());
                 artifactRepository.save(newArtifact);
-                return "/librarian_menu";
+                return "librarian_menu.html";
             }
         }
 }
