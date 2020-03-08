@@ -320,7 +320,7 @@ public class LMSController {//implements Iterable<T> {
             newArtifact.setName(artifactName.toLowerCase());
             artifactRepository.save(newArtifact);
             //model.addAttribute("message", "Artifact successfully added" );
-            response.sendRedirect("/");
+            response.sendRedirect("/librarian_menu");
         
         }
 }
