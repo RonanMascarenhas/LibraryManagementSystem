@@ -137,8 +137,21 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
-        //loanRepository.find
-        
+        List<Loan> listLoans; //= new List<Loan>();
+        ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
+        ArrayList<Long> artifactids = new ArrayList<Long>();
+        User currentUser = userSession.getUser();
+        listLoans = loanRepository.findAll();
+        Iterator<Loan> listIterator = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getUserid() == currentUser.getId())  {
+                artifactids.add(currentLoan.getArtifactid());
+                //listUsersLoans.add(currentLoan);
+            }
+        }
+        model.addAttribute("artifactids", artifactids);
         return "member_view_loans.html";
     }
 

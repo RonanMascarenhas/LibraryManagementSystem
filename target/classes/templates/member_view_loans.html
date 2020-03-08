@@ -4,11 +4,17 @@
 <html>
     <tbody>
         
-        <tr>
-            <a class="btn btn-primary" th:href="@{/member_view_loans}">View My Loans</a>
-            <th style="text-align:center;">Loans</th>
-        </tr>
+        <h2>My Loans:</h2>
 
+        <table>
+            <tr th:each="loan : ${artifactids}">
+                <td th:text="${loan}"></td>
+            </tr>
+        </table>
+
+        <form action="/member_menu">
+            <button type="submit">Back to Member Menu</button>
+        </form>
         <!--<tr>
             <a class="btn btn-primary" th:href="@{/librarian_search}">Search Artifacts</a>
             <th style="text-align:center;">Proceed as Guest</th>
