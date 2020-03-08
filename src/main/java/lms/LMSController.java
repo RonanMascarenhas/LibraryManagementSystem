@@ -30,8 +30,9 @@ public class LMSController {//implements Iterable<T> {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
-    @Autowired
-    private ArtifactLoanTable artLoanTable;
+
+    //@Autowired
+    //private ArtifactLoanTable artifactLoanTable;
 
 
     @GetMapping("/")
@@ -198,7 +199,7 @@ public class LMSController {//implements Iterable<T> {
             newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
             //add entry into lookup table
-            artLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
+            //artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
             //currentUser.setCurrentLoanid(newLoan.getLoanid()); 
         }
         //there is previous record of item being loaned
@@ -236,7 +237,7 @@ public class LMSController {//implements Iterable<T> {
             newLoan.setUserid(currentUser.getId());
             loanRepository.save(newLoan);
             //add entry into lookup table
-            artLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
+           // artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
         return "reserve_search_results.html";
     }
 
