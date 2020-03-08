@@ -1,35 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <body>
-       <h2>Enter artifact you want to reserve:</h2>
+    <div th:replace="common/head.html"></div>  
 
-       <div class="container">
-        <table class="table">
-            <!--<thead>
-                <tr>
-                    
-                    //<th style="text-align:center;">Available Artifacts</th>
-                </tr>
-            </thead>-->
-            <tbody>
-                <form method="GET" action="/reserve_search_results">
-                    Artifact ID:
-                    <br><input type="number" name="artifactID" value="1" min="1" required><br>
-                    <button type="submit">Search by ID</button>
-                </form>
-                <!--<br>
-                <form method="GET" action="/search_results_name">
-                    Artifact name:
-                    <br><input type="text" name="artifactName"><br>
-                    <button type="submit">Search by Name</button>
-                </form>
-                <tr th:each="artifacts : ${artifacts}">
-                    <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
-                </tr>-->
-                </form>
-            </tbody>
-        </table>
-    </div>
+    <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
+        <div class="container rounded" style="background-color: white; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
+                <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-10"><h1 class="title">LMS</h1></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10"><p style="font-size: x-small;">Library Managment System</p></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                </div>
+                <div class="col-lg-5">&nbsp;</div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style=" margin-top: 10%;" >
+                                <form method="GET" action="/reserve_search_results">
+                                    <div class="form-groups">
+                                        <label for="reserveArtID">Reserve an artifact by ID:</label>
+                                        <input type="number" name="artifactID" class="form-control" id="reserveArtID" placeholder="Artifact ID">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Reserve</button>
+                                    </div>
+                                </form> 
+                            </div>
+                            <!--<div style=" margin-top: 5%;">
+                                <form method="GET" action="/search_results_name">
+                                    <div class="form-groups">
+                                        <label for="reserveArtName">Reserve an artifact by name:</label>
+                                        <input type="text" name="artifactName" class="form-control" id="reserveArtName" placeholder="Artifact Name">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Reserve</button>
+                                    </div>
+                                </form>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                </div>
+            <div class="col-lg-1">&nbsp;</div>
+        </div>
+        </div>
     </body>
-    
 </html>
+
+         
+ 

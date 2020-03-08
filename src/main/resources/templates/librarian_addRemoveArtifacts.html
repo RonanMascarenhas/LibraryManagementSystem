@@ -1,48 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <div th:replace="common/head.html"></div>  
 
-       <div class="container">
-        <table class="table">
-            <!--<thead>
-                <tr>
-                    
-                    //<th style="text-align:center;">Available Artifacts</th>
-                </tr>
-            </thead>-->
-            <tbody>
-                <br>
-                <form method="POST" action="/artifact_add">
-                    Enter name of artifact to add:
-                    <br>Name:<input type="text" name="artifactName"><br>
-                    <!--<br>Type:<input type="text" name="artifactType"><br>-->
-                    <button type="submit">Add</button>
-                </form>
-                <br><br>
-                <form method="GET" action="/artifact_remove_ID">
-                    Choose Artifact to Remove:
-                    <br><input type="number" name="artifactID"><br>
-                    <button type="submit">Remove by ID</button>
-                </form>
-                <br>
-                <!--
-                <form method="GET" action="/search_results_name">
-                    Artifact name:
-                    <br><input type="text" name="artifactName"><br>
-                    <button type="submit">Search by Name</button>
-                </form>-->
-                <!--<tr th:each="artifacts : ${artifacts}">
-                    <td style="text-align:center;"><a th:href="@{/guest_search(id=${artifact.id})}" th:text="${artifact.name}"></a></td>
-                </tr>-->
-                <!--G2 register to library NOT IMPLEMENTED YET
-                <br>
-                <form method="GET" action="/register">
-                    Register to the Library<br>
-                    <button type="submit">Sign Up</button>-->
-                </form>
-            </tbody>
-        </table>
-    </div>
-    </body>
-    
+    <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
+        <div class="container rounded" style="background-color: white; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
+                <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-10"><h1 class="title">LMS</h1></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10"><p style="font-size: x-small;">Library Managment System</p></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                </div>
+                <div class="col-lg-5">&nbsp;</div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div style="display: block; text-align: center; margin-top: 10%;" >
+                                <form method="POST" action="/artifact_add">
+                                    <div class="form-groups">
+                                        <label for="artName">Name of Artifact</label>
+                                        <input type="text" class="form-control" name="artifactName" id="artName" placeholder="Artifact Name">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="display: block; text-align: center; margin-top: 10%;" >    
+                                <form method="GET" action="/artifact_remove_ID">
+                                    <div class="form-groups">
+                                        <label for="remove">Remove an artifact by ID</label>
+                                        <input type="number" name="artifactID"class="form-control" id="remove" placeholder="Artifact ID">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Remove</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>   
 </html>
