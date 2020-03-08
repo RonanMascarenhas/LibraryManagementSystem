@@ -361,7 +361,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_search")
     public String librarian_search(Model model) {
-        return "/member_search";
+        return "/librarian_menu";
     }
 
     /*@PostMapping("/register_complete")
