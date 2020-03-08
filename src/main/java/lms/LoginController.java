@@ -39,4 +39,10 @@ public class LoginController {
         }
 
     }
+
+    @GetMapping("/logout")
+    public void logout(HttpServletResponse response) throws Exception {
+        userSession.setUser(null);
+        response.sendRedirect("/");
+    }
 }
