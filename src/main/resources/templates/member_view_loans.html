@@ -1,27 +1,52 @@
-<!--prints table of loans relevant to user-->
-
 <!DOCTYPE html>
 <html>
-    <tbody>
-        
-        <h2>My Loans:</h2>
+    <div th:replace="common/head.html"></div>  
 
-        <table>
-            <tr th:each="loan : ${artifactids}">
-                <td th:text="${loan}"></td>
-            </tr>
-        </table>
+    <body style="background-image: url('images/background3.jpg'); background-size:  cover;">
+        <div class="container rounded" style="background-color: white; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
+                <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-10"><h1 class="title">LMS</h1></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10"><p style="font-size: x-small;">Library Managment System</p></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                </div>
+                <div class="col-lg-5">&nbsp;</div>
+            </div>
 
-        <form action="/member_menu">
-            <button type="submit">Back to Member Menu</button>
-        </form>
-        <!--<tr>
-            <a class="btn btn-primary" th:href="@{/librarian_search}">Search Artifacts</a>
-            <th style="text-align:center;">Proceed as Guest</th>
-        </tr>
-        <tr>
-            <a class="btn btn-primary" th:href="@{/librarian_addRemoveArtifacts}">Add/Remove Artifacts</a>
-            <th style="text-align:center;">Proceed as Guest</th>
-        </tr>-->
-   </tbody>
+            <div class="row">
+                <div class="col-lg-4">&nbsp;</div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style="margin-top: 10%;" >
+                                <h2>My Loans:</h2>
+                                <table>
+                                    <tr th:each="loan : ${artifactids}">
+                                        <td th:text="${loan}"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="/member_menu"><button class="btn btn-primary button_spacer">Back</button></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
