@@ -55,8 +55,9 @@ public class LMSController {//implements Iterable<T> {
         //model.addAttribute("artifacts", artifactRepository.findAll());
         //enter name of artifact you want
         //match input name with db artifact name (search db)
-        return "member_search.html";
+            return "member_search.html";
     }
+
 
     @GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
@@ -71,15 +72,25 @@ public class LMSController {//implements Iterable<T> {
         catch (Exception e)
         {
             model.addAttribute("message",
-            "There were no matching results for your search" );
-            return "search_results.html";
+            "There were no matching results for your search");
+            if(userSession.getUser() == null){
+                return "guest_search_results.html";
+            }
+            else {
+                return "search_results.html";
+            }
         }
 
         //boolean isEqual = maybe
         if(artifactCheck.isPresent() == false) {
             model.addAttribute("message",
             "There were no matching results for your search" );
-            return "search_results.html";
+            if(userSession.getUser() == null){
+                return "guest_search_results.html";
+            }
+            else {
+                return "search_results.html";
+            }
         }
 
         Artifact artifact = artifactRepository.getOne(artifactID);
@@ -88,7 +99,12 @@ public class LMSController {//implements Iterable<T> {
         model.addAttribute("artifact", artifact);
         //String artifactName = artifact.getName();
         //System.out.print(artifactName);
-        return "search_results.html";
+        if(userSession.getUser() == null){
+            return "guest_search_results.html";
+        }
+        else {
+            return "search_results.html";
+        }
 
         //artifactRepository.find
         //Long artID = artifactID;
@@ -112,12 +128,22 @@ public class LMSController {//implements Iterable<T> {
             model.addAttribute("message","Match found:" );
             model.addAttribute("name", artifactCheck.getName());
             model.addAttribute("artifact", artifactCheck);
-            return "search_results.html"; 
+            if(userSession.getUser() == null){
+                return "guest_search_results.html";
+            }
+            else {
+                return "search_results.html";
+            } 
         }
         else {
             model.addAttribute("message",
             "There were no matching results for your search" );
-            return "search_results.html";
+            if(userSession.getUser() == null){
+                return "guest_search_results.html";
+            }
+            else {
+                return "search_results.html";
+            }
         }
     }
 
@@ -306,7 +332,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_search")
     public String librarian_search(Model model) {
-        return "librarian_search.html";
+        return "/member_search";
     }
 
     /*@PostMapping("/register_complete")
