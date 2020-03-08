@@ -18,8 +18,6 @@ public class LoginController {
     private UserRepository userRepository;
 
    
-
-
     @PostMapping("/login")
     public String doLogin(String username, String password, HttpServletResponse response) throws Exception {
         Optional<User> user = userRepository.findByUsernameAndPassword(username, password);
