@@ -64,8 +64,6 @@ public class LMSController {//implements Iterable<T> {
         return "librarian_search.html";
     }
     
-
-
     @GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
         //long artID = artifactID;
@@ -218,7 +216,7 @@ public class LMSController {//implements Iterable<T> {
         System.out.println(password);
 
         if(username == "" || password == ""){
-            return "/register";
+            return "register.html";
         }
         else{
             User newUser = new User();
@@ -226,7 +224,7 @@ public class LMSController {//implements Iterable<T> {
             newUser.setPassword(password);
             newUser.setRole("member");
             userRepository.save(newUser);
-            return ("/register_complete");
+            return ("register_complete.html");
         }
     }
 
@@ -352,7 +350,7 @@ public class LMSController {//implements Iterable<T> {
                     model.addAttribute("message", "Item not reserved yet - are you sure you want to reserve it?");
                     model.addAttribute("artifactID", artifactID);
                     System.out.println("On loan but not reloaned yet - We can reserve it!");
-                    return "member_reserve_confirm";     //should bring up confirmation screen - M4
+                    return "member_reserve_confirm.html";     //should bring up confirmation screen - M4
                     /*Loan newLoan = new Loan();
                     newLoan.setArtifactid(artifactID);
                     newLoan.setReloaned(false);
@@ -459,14 +457,14 @@ public class LMSController {//implements Iterable<T> {
             //newArtifact.setId(5);
 
             if(artifactName == "" || artifactType == ""){
-                return "/librarian_addRemoveArtifacts";
+                return "librarian_addRemoveArtifacts.html";
             }
             else{
                 newArtifact.setName(artifactName.toLowerCase());
                 newArtifact.setType(artifactType.toLowerCase());
                 artifactRepository.save(newArtifact);
                 //model.addAttribute("message", "Artifact successfully added" );
-                return "/librarian_menu";
+                return "librarian_menu.html";
             }
         }
 }

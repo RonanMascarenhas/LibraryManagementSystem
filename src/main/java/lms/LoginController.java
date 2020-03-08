@@ -24,18 +24,18 @@ public class LoginController {
         if (user.isPresent()) {
             userSession.setUser(user.get());
             if(userSession.getUser().getRole().equals("librarian")){
-                return ("/librarian_menu");
+                return ("librarian_menu.html");
             }
             else if(userSession.getUser().getRole().equals("member")){
-                return ("/member_menu");
+                return ("member_menu.html");
             }
             else{
-                return ("/index");
+                return ("index.html");
             }
            
         } else {
             userSession.setLoginFailed(true);
-            return ("/index");
+            return ("index.html");
         }
 
     }
