@@ -58,6 +58,11 @@ public class LMSController {//implements Iterable<T> {
 
         return "member_search.html";  
     }
+
+    @GetMapping("/librarian_search")
+    public String librarian_search(Model model) {
+        return "librarian_search.html";
+    }
     
 
 
@@ -400,10 +405,7 @@ public class LMSController {//implements Iterable<T> {
         return "librarian_menu.html";
     }
 
-    @GetMapping("/librarian_search")
-    public String librarian_search(Model model) {
-        return "librarian_search.html";
-    }
+    
 
     /*@PostMapping("/register_complete")
     public String register_complete(Credentials credentials, Model model)   {
@@ -448,17 +450,23 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @PostMapping("/artifact_add")
-    public void artifact_add(
+    public String artifact_add(
         @RequestParam(name="artifactName") String artifactName, 
-        //@RequestParam(name="artifactType") String artifactType,
+        @RequestParam(name="artifactType") String artifactType,
         Model model, HttpServletResponse response) throws IOException {
             //artifactRepository.save(new Artifact(101, artifactName));
             Artifact newArtifact = new Artifact();
             //newArtifact.setId(5);
-            newArtifact.setName(artifactName.toLowerCase());
-            artifactRepository.save(newArtifact);
-            //model.addAttribute("message", "Artifact successfully added" );
-            response.sendRedirect("/librarian_menu");
-        
+
+            if(artifactName == "" || artifactType == ""){
+                return "/librarian_addRemoveArtifacts";
+            }
+            else{
+                newArtifact.setName(artifactName.toLowerCase());
+                newArtifact.setType(artifactType.toLowerCase());
+                artifactRepository.save(newArtifact);
+                //model.addAttribute("message", "Artifact successfully added" );
+                return "/librarian_menu";
+            }
         }
 }
