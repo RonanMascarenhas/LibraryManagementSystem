@@ -7,8 +7,11 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Calendar;
 //import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.time.Duration;
+import java.time.Instant;
 
 @Entity
 //@PersistenceConstructor
@@ -21,7 +24,8 @@ public class Loan{
     private boolean reserved = false;
     private boolean loaned = false;
     @CreationTimestamp
-    private Date dateLoaned;              //store date in ddmmyy format
+    private Date dateLoaned;
+    private Date dueDate;         //store date in ddmmyy format
 
     public long getLoanid() {
         return loanid;
@@ -70,4 +74,20 @@ public class Loan{
     public void setDateLoaned(Date dateLoaned)   {
         this.dateLoaned = dateLoaned;
     }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate()   {
+        int addDays = 14;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateLoaned);
+        calendar.add(Calendar.DAY_OF_YEAR, addDays);
+        this.dueDate = calendar.getTime();
+        
+        //this.dueDate = dueDate;
+    }
+
+    //Date.from(dateLoaned.toInstant().plus(Duration.ofDays(14))); 
 }

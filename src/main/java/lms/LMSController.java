@@ -230,6 +230,7 @@ public class LMSController {//implements Iterable<T> {
         ArrayList<Long> loanids = new ArrayList<Long>();
         ArrayList<Long> artifactids = new ArrayList<Long>();
         ArrayList<Date> datesLoaned = new ArrayList<Date>();
+        ArrayList<Date> dueDates = new ArrayList<Date>();
         User currentUser = userSession.getUser();
         listLoans = loanRepository.findAll();
         Iterator<Loan> listIterator = listLoans.iterator();
@@ -241,12 +242,14 @@ public class LMSController {//implements Iterable<T> {
                 loanids.add(currentLoan.getLoanid());
                 artifactids.add(currentLoan.getArtifactid());
                 datesLoaned.add(currentLoan.getDateLoaned());
+                dueDates.add(currentLoan.getDueDate());
             }
         }
         //return lists with corresponding loan details
         model.addAttribute("loanids", loanids);
         model.addAttribute("artifactids", artifactids);
         model.addAttribute("datesLoaned", datesLoaned);
+        model.addAttribute("dueDates", dueDates);
         return "member_view_loans.html";
     }
 
@@ -286,6 +289,9 @@ public class LMSController {//implements Iterable<T> {
                     newLoan.setLoaned(true);
                     User currentUser = userSession.getUser();
                     newLoan.setUserid(currentUser.getId());
+                    //newLoan.setDueDate();
+                    loanRepository.save(newLoan);
+                    newLoan.setDueDate();
                     loanRepository.save(newLoan);
                     return "loanout_search_results.html";
                 }
