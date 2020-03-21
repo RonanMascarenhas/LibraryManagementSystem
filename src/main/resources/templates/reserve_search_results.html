@@ -25,8 +25,12 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <p th:text="${message}"></p>
-                                <a href="/member_menu"><button type="button" class="btn btn-primary button_spacer">Member menu</button></a>
+                                <h3 th:text="${message}"></h3>
+                                <p th:text="${name}"></p>
+                                <a href="/member_menu"><button class="button_spacer btn btn-primary">Back to Member Menu</button></a>
+                                <!--<form action="/reserve_search_results">
+                                    <button type="submit" class="btn btn-primary button_spacer">Yes - Reserve this for me</button>
+                                </form>-->
                             </div>
                         </div>
                     </div>

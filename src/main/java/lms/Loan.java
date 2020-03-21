@@ -18,7 +18,8 @@ public class Loan{
     private long loanid;
     private long artifactid;           //tracks id of item being loaned
     private long userid;            //tracks id of user who's loaned it
-    private boolean reserved;
+    private boolean reserved = false;
+    private boolean loaned = false;
     @CreationTimestamp
     private Date dateLoaned;              //store date in ddmmyy format
 
@@ -52,5 +53,13 @@ public class Loan{
 
     public void setReserved(boolean reserved)   {
         this.reserved = reserved;
+    }
+
+    public boolean getLoaned() {
+        return loaned;
+    }
+
+    public void setLoaned(boolean loaned)   {
+        this.loaned = loaned;
     }
 }

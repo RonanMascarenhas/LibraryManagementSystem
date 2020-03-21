@@ -230,13 +230,13 @@ public class LMSController {//implements Iterable<T> {
         return "member_view_loans.html";
     }
 
-    @GetMapping("/member_reserve_item")
-    public String member_reserve_item(Model model) {
-        return "member_reserve_item.html";
+    @GetMapping("/member_loanout_item")
+    public String member_loanout_item(Model model) {
+        return "member_loanout_item.html";
     }
 
-    @GetMapping("/reserve_search_results")
-    public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
+    @GetMapping("/loanout_search_results")
+    public String loanout_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
         long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
@@ -257,17 +257,17 @@ public class LMSController {//implements Iterable<T> {
             while (listArtIterator.hasNext() == true) {
                 Artifact currentArtifact = listArtIterator.next();
                 if (currentArtifact.getId() == artifactID)  {
-                    //artifact exists - we can reserve it
+                    //artifact exists and hasnt been loaned out before - we can loan it out
                     artifactExists = true;
-                    model.addAttribute("message", "Your item has been reserved");
-                    System.out.println("No previous loans for item/Item exists - We can reserve it!");
+                    model.addAttribute("message", "Loan out request successful");
+                    System.out.println("No previous loans for item/Item exists - We can loan it out!");
                     Loan newLoan = new Loan();
                     newLoan.setArtifactid(artifactID);
-                    newLoan.setReserved(true);
+                    newLoan.setLoaned(true);
                     User currentUser = userSession.getUser();
                     newLoan.setUserid(currentUser.getId());
                     loanRepository.save(newLoan);
-                    return "reserve_search_results.html";
+                    return "loanout_search_results.html";
                 }
             }
 
@@ -275,60 +275,84 @@ public class LMSController {//implements Iterable<T> {
                 //input artifact id doesnt belong to existing artifact - cannot reserve
                 model.addAttribute("message", "Item does not exist - please make sure you have entered the correct details");
                 System.out.println("Item doesn't exist :(");
-                return "reserve_search_results.html";
             }
+            return "loanout_search_results.html";
         }
         //there IS a previous record of item being loaned
         else    {
+            //fetching latest record of the item being loaned out
             int loanIndex = ((int)latestLoan - 1);
             Loan currentLoan = listLoans.get(loanIndex);
-            //item is out on loan AND has already been reserved (maybe even by the current user) - cannot reserve 
-            if (currentLoan.getReserved() == true)
-                //another user has already reserved the item
-               {    
-                    model.addAttribute("message", "Item cannot be reserved - is out on loan and has already been reserved");
-                    model.addAttribute("artifactID", artifactID);
-                    System.out.println("On loan AND has already been reserved - cannot reserve :(");
+            //item is out on loan - check if we can reserve it
+            if (currentLoan.getLoaned() == true)
+            {
+                //item it loaned out and reserved - cant do anything
+                if (currentLoan.getReserved() == true)
+                {    
+                    model.addAttribute("message", "Item is out on loan and has already been reserved");
+                    //model.addAttribute("artifactID", artifactID);
+                    System.out.println("On loan AND has already been reserved - cant do anything :(");
+                    return "loanout_search_results.html";
                 }
-
-            else if (currentLoan.getReserved() == false) {
-                //current user is trying to reserve same item again!
-                if (currentLoan.getUserid() == userSession.getUser().getId()) {
-                    model.addAttribute("message", "You have already reserved this item!");
-                    model.addAttribute("artifactID", artifactID);
-                    System.out.println("Item already reserved by current member!");
-                }
-                else    {
-                    //item is out on loan but has not been reserved
-                    model.addAttribute("message", "Item not reserved yet - are you sure you want to reserve it?");
-                    model.addAttribute("artifactID", artifactID);
-                    System.out.println("On loan but not reloaned yet - We can reserve it!");
-                    return "member_reserve_confirm";     //should bring up confirmation screen - M4
+                //item out on loan but NOT reserved - redirect to reserve item
+                else
+                {
+                    model.addAttribute("message", "Item is out on loan but hasnt been reserved yet - re enter ID to reserve it");
+                    System.out.println("On loan but HASNT been reserved - can reserve :D");
+                    return "member_reserve_item";
                 }
             }
-            else    {
-                //item is currently reserved - unkown why
-                model.addAttribute("message", "Item cannot be reserved");
-                System.out.println("Item cannot be reserved :(");
-            }
+            return "loanout_search_results.html";
         }
-        return "reserve_search_results.html";
     }
 
-    @PostMapping("/reserve_search_results")
-    public String member_reserve_confirm(Model model) {
-        //loanRepository.find
-        model.addAttribute("message", "Your item has been reserved");
-        //NOTE: Unable to get artifactID from here, cant assign it to loan record
-            Loan newLoan = new Loan();
-            //item is being reserved - cant be reserved again
-            newLoan.setReserved(true);
-            User currentUser = userSession.getUser();
-            newLoan.setUserid(currentUser.getId());
-            loanRepository.save(newLoan);
-            //add entry into lookup table
-           // artifactLoanTable.setLoanOfArtifact(currentUser.getId(), newLoan.getLoanid());
-        return "reserve_search_results.html";
+
+
+    @GetMapping("/reserve_search_results")
+    public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
+
+        long latestLoan = -1;
+        List<Loan> listLoans; //= new List<Loan>();
+        listLoans = loanRepository.findAll();
+        Iterator<Loan> listLoanIterator = listLoans.iterator();
+        while (listLoanIterator.hasNext() == true) {
+            Loan currentLoan = listLoanIterator.next();
+            if (currentLoan.getArtifactid() == artifactID)  {
+                latestLoan = currentLoan.getLoanid();
+            }
+        }
+
+        //no previous record of item was found in loanRepo -artifact doesnt exist
+        if (latestLoan == -1)  { 
+            model.addAttribute("message", "Item does not exist - please make sure you have entered the correct details");
+            System.out.println("Item doesn't exist :(");
+            return "reserve_search_results.html";
+            //}
+        }
+        //there IS a previous record of item being loaned
+        else    {
+            //fetching latest record of the item being loaned out
+            int loanIndex = ((int)latestLoan - 1);
+            Loan currentLoan = listLoans.get(loanIndex);
+            //item is out on loan - check if we can reserve it
+            //item it loaned out and reserved - cant do anything
+            if (currentLoan.getReserved() == true)
+            {    
+                model.addAttribute("message", "Item is out on loan and has already been reserved");
+                //model.addAttribute("artifactID", artifactID);
+                System.out.println("On loan AND has already been reserved - cant do anything :(");
+                return "reserve_search_results.html";
+            }
+            //item out on loan but NOT reserved - reserve item
+            else
+            {
+                model.addAttribute("message", "Your item has been reserved");
+                System.out.println("On loan but HASNT been reserved - will reserve now :D");
+                currentLoan.setReserved(true);
+                loanRepository.save(currentLoan);
+                return "reserve_search_results";
+            }
+        }
     }   
 
     @GetMapping("/librarian_menu")
