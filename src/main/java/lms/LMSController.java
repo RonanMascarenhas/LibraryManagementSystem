@@ -440,7 +440,95 @@ public class LMSController {//implements Iterable<T> {
                 return "reserve_search_results";
             }
         }
-    }   
+    } 
+    
+    @GetMapping("/member_renew_item")
+    public String member_renew_item(Model model) {
+        User currentUser = userSession.getUser();
+        //ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
+        ArrayList<Long> currentUserLoanids = new ArrayList<Long>();
+
+        List<Loan> listLoans = loanRepository.findAll();
+        Iterator<Loan> listIterator = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getUserLoanedid() == currentUser.getId())  {
+                currentUserLoanids.add(currentLoan.getLoanid());
+
+                /*fetch relevant artifact details from repo
+                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
+                //store details of loan/artifact/user in lists
+                loanids.add(currentLoan.getLoanid());
+                artifactids.add(currentLoan.getArtifactid());
+                datesLoaned.add(currentLoan.getDateLoaned());
+                dueDates.add(currentLoan.getDueDate());
+                artifactNames.add(tempArt.getName());
+                artifactTypes.add(tempArt.getType());*/
+            }
+        }
+        
+        model.addAttribute("currentUserLoanids", currentUserLoanids);
+        return "member_renew_item.html";
+    }
+
+    @GetMapping("/renew_search_results")
+    public String renew_search_results(@RequestParam(name="loanID") Long loanID, Model model) {
+        //fetch loan from repo 
+        Loan currentLoan = loanRepository.getOne(loanID);
+        User currentUser = userSession.getUser();
+        if (currentLoan.getReserved() == true)  {
+            //item already reserved by user!
+            if (currentLoan.getUserReservedid() == currentUser.getId())   {
+                model.addAttribute("message", "You've already reserved this item!");
+                System.out.println("Item already reserved by user - can't reserve again!");
+                return "renew_search_results.html";
+            }
+            //item reserved by someone else, cannot be renewed
+            else    {
+                model.addAttribute("message", "Request denied - item already reserved by someone else");
+                System.out.println("Item already reserved by someone else - cannot be reserved :(");
+                return "renew_search_results.html";
+            }
+        }
+        //item not reserved - CAN be renewed
+        else    {
+            model.addAttribute("message", "Item renewed");
+            System.out.println("No reservation - item renewed :)");
+            currentLoan.setReserved(true);
+            currentLoan.setUserReservedid(currentUser.getId());
+            loanRepository.save(currentLoan);
+            currentLoan.setDueDate();
+            loanRepository.save(currentLoan);
+            return "renew_search_results.html";
+        }
+        
+        /*User currentUser = userSession.getUser();
+        ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
+
+        List<Loan> listLoans = loanRepository.findAll();
+        Iterator<Loan> listIterator = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getUserLoanedid() == currentUser.getId())  {
+                currentUserLoans.add(currentLoan);
+
+                fetch relevant artifact details from repo
+                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
+                //store details of loan/artifact/user in lists
+                loanids.add(currentLoan.getLoanid());
+                artifactids.add(currentLoan.getArtifactid());
+                datesLoaned.add(currentLoan.getDateLoaned());
+                dueDates.add(currentLoan.getDueDate());
+                artifactNames.add(tempArt.getName());
+                artifactTypes.add(tempArt.getType());
+            }
+        }*/
+
+
+    }
+
 
     @GetMapping("/librarian_menu")
     public String librarian_menu(Model model) {
