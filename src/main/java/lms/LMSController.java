@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 
 import javax.persistence.PersistenceUnit;
 import javax.servlet.http.HttpServletResponse;
@@ -213,9 +214,22 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
+
+        /*
+        private long loanid;
+    private long artifactid;           //tracks id of item being loaned
+    private long userid;            //tracks id of user who's loaned it
+    private boolean reserved = false;
+    private boolean loaned = false;
+    @CreationTimestamp
+    private Date dateLoaned;
+        */
+
         List<Loan> listLoans; //= new List<Loan>();
-        ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
+        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
+        ArrayList<Long> loanids = new ArrayList<Long>();
         ArrayList<Long> artifactids = new ArrayList<Long>();
+        ArrayList<Date> datesLoaned = new ArrayList<Date>();
         User currentUser = userSession.getUser();
         listLoans = loanRepository.findAll();
         Iterator<Loan> listIterator = listLoans.iterator();
@@ -223,10 +237,16 @@ public class LMSController {//implements Iterable<T> {
         while (listIterator.hasNext() == true) {
             Loan currentLoan = listIterator.next();
             if (currentLoan.getUserid() == currentUser.getId())  {
+                //store details of loans in lists
+                loanids.add(currentLoan.getLoanid());
                 artifactids.add(currentLoan.getArtifactid());
+                datesLoaned.add(currentLoan.getDateLoaned());
             }
         }
+        //return lists with corresponding loan details
+        model.addAttribute("loanids", loanids);
         model.addAttribute("artifactids", artifactids);
+        model.addAttribute("datesLoaned", datesLoaned);
         return "member_view_loans.html";
     }
 

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -61,5 +61,13 @@ public class Loan{
 
     public void setLoaned(boolean loaned)   {
         this.loaned = loaned;
+    }
+
+    public Date getDateLoaned() {
+        return dateLoaned;
+    }
+
+    public void setDateLoaned(Date dateLoaned)   {
+        this.dateLoaned = dateLoaned;
     }
 }

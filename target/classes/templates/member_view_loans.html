@@ -27,8 +27,14 @@
                             <div style="margin-top: 10%;" >
                                 <h2>My Loans:</h2>
                                 <table>
-                                    <tr th:each="loan : ${artifactids}">
-                                        <td th:text="${loan}"></td>
+                                    <tr th:each="loanid : ${loanids}">
+                                        <td th:text="${loanid}"></td>
+                                    </tr>
+                                    <tr th:each="artifactid : ${artifactids}">
+                                        <td th:text="${artifactid}"></td>
+                                    </tr>
+                                    <tr th:each="dateloaned : ${datesLoaned}">
+                                        <td th:text="${dateloaned}"></td>
                                     </tr>
                                 </table>
                             </div>
