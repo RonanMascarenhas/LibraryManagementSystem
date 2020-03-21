@@ -39,6 +39,12 @@
                                     <tr th:each="duedate : ${dueDates}">
                                         <td th:text="${duedate}"></td>
                                     </tr>
+                                    <tr th:each="artifactname : ${artifactNames}">
+                                        <td th:text="${artifactname}"></td>
+                                    </tr>
+                                    <tr th:each="artifacttype : ${artifactTypes}">
+                                        <td th:text="${artifacttype}"></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

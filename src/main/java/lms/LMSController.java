@@ -231,6 +231,9 @@ public class LMSController {//implements Iterable<T> {
         ArrayList<Long> artifactids = new ArrayList<Long>();
         ArrayList<Date> datesLoaned = new ArrayList<Date>();
         ArrayList<Date> dueDates = new ArrayList<Date>();
+        ArrayList<String> artifactNames = new ArrayList<String>();
+        ArrayList<String> artifactTypes = new ArrayList<String>();
+
         User currentUser = userSession.getUser();
         listLoans = loanRepository.findAll();
         Iterator<Loan> listIterator = listLoans.iterator();
@@ -238,11 +241,15 @@ public class LMSController {//implements Iterable<T> {
         while (listIterator.hasNext() == true) {
             Loan currentLoan = listIterator.next();
             if (currentLoan.getUserid() == currentUser.getId())  {
-                //store details of loans in lists
+                //fetch relevant artifact details from repo
+                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
+                //store details of loan/artifact/user in lists
                 loanids.add(currentLoan.getLoanid());
                 artifactids.add(currentLoan.getArtifactid());
                 datesLoaned.add(currentLoan.getDateLoaned());
                 dueDates.add(currentLoan.getDueDate());
+                artifactNames.add(tempArt.getName());
+                artifactTypes.add(tempArt.getType());
             }
         }
         //return lists with corresponding loan details
@@ -250,6 +257,9 @@ public class LMSController {//implements Iterable<T> {
         model.addAttribute("artifactids", artifactids);
         model.addAttribute("datesLoaned", datesLoaned);
         model.addAttribute("dueDates", dueDates);
+        model.addAttribute("artifactNames", artifactNames);
+        model.addAttribute("artifactTypes", artifactTypes);
+
         return "member_view_loans.html";
     }
 
