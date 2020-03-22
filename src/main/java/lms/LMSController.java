@@ -115,6 +115,8 @@ public class LMSController {//implements Iterable<T> {
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
         ArrayList<Artifact> results = new ArrayList<Artifact>();
 
+        artifactType = artifactType.toLowerCase();
+
         for(Artifact tempArt : artifactRepository.findAll()) {
             if(tempArt.getType().equals(artifactType)){
                 results.add(tempArt);
