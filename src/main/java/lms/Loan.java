@@ -20,8 +20,8 @@ public class Loan{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long loanid;
     private long artifactid;           //tracks id of item being loaned
-    private long artifactName;
-    private long artifactType;
+    private String artifactName;
+    private String artifactType;
     private long userLoanedid;            //tracks id of user who's loaned it
     private long userReservedid;        //tracks id of user who's reserved it
     private boolean reserved = false;
@@ -33,7 +33,6 @@ public class Loan{
     public long getLoanid() {
         return loanid;
     }
-
     public void setLoanid(long loanid)   {
         this.loanid = loanid;
     }
@@ -46,19 +45,19 @@ public class Loan{
         this.artifactid = artifactid;
     }
 
-    public long getArtifactName() {
+    public String getArtifactName() {
         return artifactName;
     }
 
-    public void setArtifactName(long artifactName)   {
+    public void setArtifactName(String artifactName)   {
         this.artifactName = artifactName;
     }
 
-    public long getArtifactType() {
+    public String getArtifactType() {
         return artifactType;
     }
 
-    public void setArtifactType(long artifactType)   {
+    public void setArtifactType(String artifactType)   {
         this.artifactType = artifactType;
     }
 
