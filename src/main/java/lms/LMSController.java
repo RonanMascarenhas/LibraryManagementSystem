@@ -161,7 +161,7 @@ public class LMSController {//implements Iterable<T> {
         artifactName = artifactName.toLowerCase();
 
         for(Artifact tempArt : artifactRepository.findAll()) {
-            if(tempArt.getType().equals(artifactName)){
+            if(tempArt.getName().equals(artifactName)){
                 results.add(tempArt);
             }
         }
@@ -570,7 +570,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
-        List<Loan> listLoans; //= new List<Loan>();
+       /* List<Loan> listLoans; //= new List<Loan>();
         //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
         ArrayList<Long> loanids = new ArrayList<Long>();
         ArrayList<Long> artifactids = new ArrayList<Long>();
@@ -605,7 +605,24 @@ public class LMSController {//implements Iterable<T> {
         model.addAttribute("artifactNames", artifactNames);
         model.addAttribute("artifactTypes", artifactTypes);
 
-        return "librarian_viewLoansResults.html";
+        return "librarian_viewLoansResults.html";*/
+
+        ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
+        
+        for(Loan tempLoan: loanRepository.findAll()){
+            if(tempLoan.getUserLoanedid() == userid){
+                listLoans.add(tempLoan);
+            }
+        }
+        if(listLoans.size() != 0){
+            model.addAttribute("message","Match found:" );
+            model.addAttribute("loans", listLoans);
+            return "librarian_viewLoansResults.html";
+        }
+        else {
+            model.addAttribute("message", "There were no matching results for your search" );
+            return "librarian_viewLoansResults.html";
+        }
     }
 
     @GetMapping("/librarian_useridInput")
@@ -665,8 +682,10 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/librarian_renewResults")
-    public String librarian_renewResults(@RequestParam(name="loanID") long loanID, Model model) {
-        
+    public String librarian_renewResults(@RequestParam(name="loanID") Long loanID, Model model) {
+        if(loanID == null){
+            return"librarian_loanRenew.html";
+        }
         //fetch loan from repo 
         Loan currentLoan = loanRepository.getOne(loanID);
         //User currentUser = userSession.getUser();
@@ -707,6 +726,9 @@ public class LMSController {//implements Iterable<T> {
     public String librarian_recordLoanResults(Model model, @RequestParam(name="artifactid") Long artifactid, @RequestParam(name="userid") Long userid)  {
         
         if(artifactid == null){
+            return "librarian_recordLoanResults.html";
+        }
+        if(userid == null){
             return "librarian_recordLoanResults.html";
         }
         //check if artifact entered exists

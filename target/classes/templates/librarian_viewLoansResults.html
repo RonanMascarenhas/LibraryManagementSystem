@@ -26,25 +26,27 @@
                         <div class="col-lg-12">
                             <div style="margin-top: 10%;" >
                                 <h2>Member Loans:</h2>
-                                <table>
-                                    <tr th:each="loanid : ${loanids}">
-                                        <td th:text="${loanid}"></td>
-                                    </tr>
-                                    <tr th:each="artifactid : ${artifactids}">
-                                        <td th:text="${artifactid}"></td>
-                                    </tr>
-                                    <tr th:each="dateloaned : ${datesLoaned}">
-                                        <td th:text="${dateloaned}"></td>
-                                    </tr>
-                                    <tr th:each="duedate : ${dueDates}">
-                                        <td th:text="${duedate}"></td>
-                                    </tr>
-                                    <tr th:each="artifactname : ${artifactNames}">
-                                        <td th:text="${artifactname}"></td>
-                                    </tr>
-                                    <tr th:each="artifacttype : ${artifactTypes}">
-                                        <td th:text="${artifacttype}"></td>
-                                    </tr>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan ID</th>
+                                            <th>Artifact ID</th>
+                                            <th>Artifact Name</th>
+                                            <th>Artifact Type</th>
+                                            <th>Date Loaned</th>
+                                            <th>Return Date</th>   
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="loan : ${loans}">
+                                            <td th:text="${loan.loanid}"></td>
+                                            <td th:text="${loan.artifactid}"></td>
+                                            <td th:text="${loan.artifactName}"></td>
+                                            <td th:text="${loan.artifactType}"></td>
+                                            <td th:text="${#dates.format(loan.dateLoaned, 'MMMMM dd, YYYY')}"></td>
+                                            <td th:text="${#dates.format(loan.dueDate, 'MMMMM dd, YYYY')}"></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
