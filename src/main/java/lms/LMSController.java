@@ -115,6 +115,8 @@ public class LMSController {//implements Iterable<T> {
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
         ArrayList<Artifact> results = new ArrayList<Artifact>();
 
+        artifactType = artifactType.toLowerCase();
+
         for(Artifact tempArt : artifactRepository.findAll()) {
             if(tempArt.getType().equals(artifactType)){
                 results.add(tempArt);
@@ -459,7 +461,7 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/renew_search_results")
-    public String renew_search_results(@RequestParam(name="loanID") Long loanID, Model model) {
+    public String renew_search_results(@RequestParam(name="loanID") long loanID, Model model) {
         //fetch loan from repo 
         Loan currentLoan = loanRepository.getOne(loanID);
         User currentUser = userSession.getUser();
@@ -659,10 +661,10 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/librarian_renewResults")
-    public String librarian_renewResults(@RequestParam(name="loanid") Long loanid, Model model) {
+    public String librarian_renewResults(@RequestParam(name="loanID") long loanID, Model model) {
         
         //fetch loan from repo 
-        Loan currentLoan = loanRepository.getOne(loanid);
+        Loan currentLoan = loanRepository.getOne(loanID);
         //User currentUser = userSession.getUser();
         if (currentLoan.getReserved() == true)  {
             //item already reserved by user!

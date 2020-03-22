@@ -18,7 +18,7 @@ import java.time.Instant;
 public class Loan{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long loanid;
+    private long loanID;
     private long artifactid;           //tracks id of item being loaned
     private String artifactName;
     private String artifactType;
@@ -31,10 +31,10 @@ public class Loan{
     private Date dueDate;         //store date in ddmmyy format
 
     public long getLoanid() {
-        return loanid;
+        return loanID;
     }
-    public void setLoanid(long loanid)   {
-        this.loanid = loanid;
+    public void setLoanid(long loanID)   {
+        this.loanID = loanID;
     }
 
     public long getArtifactid() {
