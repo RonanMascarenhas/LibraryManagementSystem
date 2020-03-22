@@ -448,6 +448,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/renew_search_results")
     public String renew_search_results(@RequestParam(name="loanID") Long loanID, Model model) {
+        if(loanID ==null){
+            return "member_renew_item.html";
+        }
         //fetch loan from repo 
         Loan currentLoan = loanRepository.getOne(loanID);
         User currentUser = userSession.getUser();
@@ -552,9 +555,15 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
+<<<<<<< HEAD
       if(userid == null){
           return "librarian_viewMemberLoans.html";
       }
+=======
+        if(userid == null){
+            return "librarain_viewMemberLoans.html";
+        }
+>>>>>>> fe54a01b198214b76926829e064cbb6820b7883e
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
