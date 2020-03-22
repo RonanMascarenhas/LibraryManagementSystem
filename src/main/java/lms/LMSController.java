@@ -655,6 +655,7 @@ public class LMSController {//implements Iterable<T> {
         else    {
         List<Loan> listLoans; //= new List<Loan>();
         ArrayList<Long> loanids = new ArrayList<Long>();
+        boolean loansExist = false;        //check if member has any loans
 
         listLoans = loanRepository.findAll();
         Iterator<Loan> listIteratorTwo = listLoans.iterator();
@@ -662,13 +663,22 @@ public class LMSController {//implements Iterable<T> {
         while (listIteratorTwo.hasNext() == true) {
             Loan currentLoan = listIteratorTwo.next();
             if (currentLoan.getUserLoanedid() == selectedUser.getId())  {
-                loanids.add(currentLoan.getLoanid());
+                loansExist = true;      //member has at least one loan
+                loanids.add(currentLoan.getLoanid());      
             }
         }
-        //return list with corresponding loanids belonging to that member
-        model.addAttribute("loanids", loanids);
-        return "librarian_loanRenew.html";
+
+        //member exists but hasnt taken any loans out
+        if  (loansExist == false)    {
+            model.addAttribute("message", "No loans associated with the member.");
+            return "librarian_renewResults.html";
         }
+        else    {
+            //return list with corresponding loanids belonging to that member
+            model.addAttribute("loanids", loanids);
+            return "librarian_loanRenew.html";
+        }
+    }
 
     }
 
