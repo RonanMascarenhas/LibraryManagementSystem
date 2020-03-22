@@ -461,7 +461,7 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/renew_search_results")
-    public String renew_search_results(@RequestParam(name="loanID") Long loanID, Model model) {
+    public String renew_search_results(@RequestParam(name="loanID") long loanID, Model model) {
         //fetch loan from repo 
         Loan currentLoan = loanRepository.getOne(loanID);
         User currentUser = userSession.getUser();
