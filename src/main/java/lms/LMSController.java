@@ -31,6 +31,8 @@ public class LMSController {//implements Iterable<T> {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
+    @Autowired
+    private ArtifactRepository temprepo;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -97,10 +99,8 @@ public class LMSController {//implements Iterable<T> {
             }
         }
 
-        Artifact artifact = artifactRepository.getOne(artifactID);
         model.addAttribute("message","Match found:" );
-        model.addAttribute("name", artifact.getName());
-        model.addAttribute("artifact", artifact);
+        model.addAttribute("artifacts", artifactRepository.findById(artifactID));
         if(userSession.getUser() == null){
             return "guest_search_results.html";
         }
@@ -114,14 +114,12 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_type")
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
-        
         Artifact artifactCheck = artifactRepository.findByType(artifactType);
-
+        
         if(artifactCheck != null){
             model.addAttribute("message","Match found:" );
-            model.addAttribute("name", artifactCheck.getName());
-            model.addAttribute("type", artifactCheck.getType());
-            model.addAttribute("artifact", artifactCheck);
+            
+            model.addAttribute("artifacts", temprepo.findAll());
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
@@ -154,8 +152,7 @@ public class LMSController {//implements Iterable<T> {
 
         if(artifactCheck != null){
             model.addAttribute("message","Match found:" );
-            model.addAttribute("name", artifactCheck.getName());
-            model.addAttribute("artifact", artifactCheck);
+            model.addAttribute("artifacts", artifactRepository.findByName(artifactName.toLowerCase()));
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
