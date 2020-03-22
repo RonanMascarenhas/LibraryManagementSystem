@@ -26,24 +26,16 @@
                         <div class="col-lg-12">
                             <div style=" margin-top: 10%;" >
                                 <!--drop down menu choose loan to renew HERE, input list is currentUserLoanids-->
-
                                 <!--test form delete later-->
                                 <form method="GET" action="/renew_search_results">
                                     <div class="form-groups">
-                                        <label for="reserveloanID">Renew artifact by loanID:</label>
-                                            <select id="reserveloanID" name="loanID" placeholder="loan ID">
+                                        <label for="renewloanID">Renew artifact by loanID:</label>
+                                            <select id="renewloanID" name="renewloanID" placeholder="renewloan ID">
                                                 <option th:each="i : ${currentUserLoans}" th:value="${i}" th:text="${i}"></option>
                                             </select>
                                         <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
                                     </div>
                                 </form>
-                                <!--<form method="GET" action="/renew_search_results">
-                                    <div class="form-groups">
-                                        <label for="reserveArtID">Renew artifact by ID:</label>
-                                        <input type="number" name="artifactID" class="form-control" id="reserveArtID" placeholder="Artifact ID">
-                                        <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
-                                    </div>
-                                </form>-->
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
                                     <div class="form-groups">
                                         <label for="loanid">Renew artifact by loanID:</label>
                                             <select id="loanid" name="loanID" placeholder="loan ID">
-                                                <option th:each="i : ${loanids}" th:value="${i}" th:text="${i}"></option>
+                                                <option th:each="i : ${loans}" th:value="${i}" th:text="${i}"></option>
                                             </select>
                                         <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
                                     </div>

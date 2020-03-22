@@ -223,16 +223,6 @@ public class LMSController {//implements Iterable<T> {
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
 
-        /*
-        private long loanid;
-    private long artifactid;           //tracks id of item being loaned
-    private long userid;            //tracks id of user who's loaned it
-    private boolean reserved = false;
-    private boolean loaned = false;
-    @CreationTimestamp
-    private Date dateLoaned;
-        */
-
         List<Loan> listLoans; //= new List<Loan>();
         //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
         ArrayList<Long> loanids = new ArrayList<Long>();
@@ -568,21 +558,19 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewMemberLoans")
     public String librarian_viewMemberLoans(Model model)    {
-        //User currentUser = userSession.getUser();
-        //ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
 
-        ArrayList<Long> memberids = new ArrayList<Long>();
+        ArrayList<User> members = new ArrayList<User>();
         List<User> listUsers = userRepository.findAll();
         Iterator<User> listIterator = listUsers.iterator();
         //search user repo, store all ids belonging to members
         while (listIterator.hasNext() == true) {
             User currentUser = listIterator.next();
             if (currentUser.getRole() == "member")  {
-                memberids.add(currentUser.getId());
+                members.add(currentUser);
             }
         }
         
-        model.addAttribute("memberids", memberids);
+        model.addAttribute("members", members);
         return "librarian_viewMemberLoans.html";
     }
 
@@ -654,7 +642,7 @@ public class LMSController {//implements Iterable<T> {
         //id matches a member - fetch all loanids relating to that member
         else    {
         List<Loan> listLoans; //= new List<Loan>();
-        ArrayList<Long> loanids = new ArrayList<Long>();
+        ArrayList<Loan> loans = new ArrayList<Loan>();
         boolean loansExist = false;        //check if member has any loans
 
         listLoans = loanRepository.findAll();
@@ -664,7 +652,7 @@ public class LMSController {//implements Iterable<T> {
             Loan currentLoan = listIteratorTwo.next();
             if (currentLoan.getUserLoanedid() == selectedUser.getId())  {
                 loansExist = true;      //member has at least one loan
-                loanids.add(currentLoan.getLoanid());      
+                loans.add(currentLoan);      
             }
         }
 
@@ -675,7 +663,7 @@ public class LMSController {//implements Iterable<T> {
         }
         else    {
             //return list with corresponding loanids belonging to that member
-            model.addAttribute("loanids", loanids);
+            model.addAttribute("loans", loans);
             return "librarian_loanRenew.html";
         }
     }
@@ -714,6 +702,11 @@ public class LMSController {//implements Iterable<T> {
             return "librarian_renewResults.html";
         }
         //return "librarian_renewResults.html";
+    }
+
+    @GetMapping("/librarian_recordArtifactOnLoan")
+    public String librarian_recordArtifactOnLoan(Model model) {
+        return "librarian_recordArtifactOnLoan.html";
     }
 
 }
