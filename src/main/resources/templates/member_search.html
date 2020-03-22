@@ -17,41 +17,65 @@
                         </div>
                     </div>
                     <div class="col-lg-5">&nbsp;</div>
-                    <div class="col-lg-2 mx-auto"><a href="/member_menu"><button type="button" class="button_spacer btn btn-primary">Menu</button></a></div>
+                    <div class="col-lg-2 mx-auto"><a href="/member_menu"><button type="button" class="button_spacer btn btn-primary btn-block">Menu</button></a></div>
                 </div>
 
             <div class="row">
                 <div class="col-lg-1">&nbsp;</div>
                 <div class="col-lg-10">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div style=" margin-top: 10%;" >
+                        <div class="col-lg-4" style=" margin-top: 10%;">
                                 <form method="GET" action="/search_results_ID">
                                     <div class="form-groups">
-                                        <label for="artID">Search for an Artifact</label>
+                                        <label for="artID">Search for an Artifact by ID</label>
                                         <input type="number" class="form-control" name="artifactID" id="artID" placeholder="Artifact Id">
-                                        <button type="submit" class=" btn btn-primary button_spacer">Search</button>
+                                        <button type="submit" class=" btn btn-primary button_spacer btn-block">Search Id</button>
                                     </div>
                                 </form>
+                        </div>
+                        <div class="col-lg-4" style=" margin-top: 10%;">
                                 <form method="GET" action="/search_results_type">
                                     <div class="form-groups">
-                                        <label for="artType">Search for an Artifact</label>
+                                        <label for="artType">Search for Artifacts by type</label>
                                         <input type="text" name="artifactType"class="form-control" id="artType" placeholder="Artifact Type">
-                                        <button type="submit" class=" btn btn-primary button_spacer">Search</button>
+                                        <button type="submit" class=" btn btn-primary button_spacer btn-block">Search Type</button>
                                     </div>
                                 </form>
+                        </div>
+                        <div class="col-lg-4" style=" margin-top: 10%;">
                                 <form method="GET" action="/search_results_name">
                                     <div class="form-groups">
-                                        <label for="artName">Search for an Artifact</label>
+                                        <label for="artName">Search for an Artifact by Name</label>
                                         <input type="text" name="artifactName"class="form-control" id="artName" placeholder="Artifact Name">
-                                        <button type="submit" class=" btn btn-primary button_spacer">Search</button>
+                                        <button type="submit" class=" btn btn-primary button_spacer btn-block">Search Name</button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
+                        </div>                     
                     </div>
                     <div class="row">
                         <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 align-self-center">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Artifact ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="artifact : ${artifacts}">
+                                        <td th:text="${artifact.id}"></td>
+                                        <td th:text="${artifact.name}"></td>
+                                        <td th:text="${artifact.type}"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">&nbsp;</div>

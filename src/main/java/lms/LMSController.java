@@ -51,7 +51,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_search")
     public String member_search(Model model) {
-
+        model.addAttribute("artifacts", artifactRepository.findAll());
         //enter name of artifact you want
         //match input name with db artifact name (search db)
 
@@ -60,6 +60,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_search")
     public String librarian_search(Model model) {
+        model.addAttribute("artifacts", artifactRepository.findAll());
         return "librarian_search.html";
     }
     
