@@ -31,6 +31,8 @@
                                         <tr>
                                             <th>Loan ID</th>
                                             <th>Artifact ID</th>
+                                            <th>Artifact Name</th>
+                                            <th>Artifact Type</th>
                                             <th>Date Loaned</th>
                                             <th>Return Date</th>   
                                         </tr>
@@ -39,6 +41,8 @@
                                         <tr th:each="loan : ${loans}">
                                             <td th:text="${loan.loanid}"></td>
                                             <td th:text="${loan.artifactid}"></td>
+                                            <td th:text="${loan.artifactName}"></td>
+                                            <td th:text="${loan.artifactType}"></td>
                                             <td th:text="${#dates.format(loan.dateLoaned, 'MMMMM dd, YYYY')}"></td>
                                             <td th:text="${#dates.format(loan.dueDate, 'MMMMM dd, YYYY')}"></td>
                                         </tr>

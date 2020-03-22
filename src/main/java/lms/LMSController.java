@@ -222,31 +222,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
-<<<<<<< HEAD
-
-        List<Loan> listLoans; //= new List<Loan>();
-        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
-        ArrayList<Long> loanids = new ArrayList<Long>();
-        ArrayList<Long> artifactids = new ArrayList<Long>();
-        ArrayList<Date> datesLoaned = new ArrayList<Date>();
-        ArrayList<Date> dueDates = new ArrayList<Date>();
-        ArrayList<String> artifactNames = new ArrayList<String>();
-        ArrayList<String> artifactTypes = new ArrayList<String>();
-
-=======
-        /*List<Loan> listLoans; //= new List<Loan>();
        
->>>>>>> 66f44555bce2c520fc3929c061c74a06f8b21577
-        User currentUser = userSession.getUser();
-        listLoans = loanRepository.findAll();
-        Iterator<Loan> listIterator = listLoans.iterator();
-        //check all loans for any that are from user, store in a different list
-        while (listIterator.hasNext() == true) {
-            Loan currentLoan = listIterator.next();
-            if (currentLoan.getUserLoanedid() == currentUser.getId())  {
-            
-            }
-        }*/
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
