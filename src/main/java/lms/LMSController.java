@@ -570,43 +570,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
-       /* List<Loan> listLoans; //= new List<Loan>();
-        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
-        ArrayList<Long> loanids = new ArrayList<Long>();
-        ArrayList<Long> artifactids = new ArrayList<Long>();
-        ArrayList<Date> datesLoaned = new ArrayList<Date>();
-        ArrayList<Date> dueDates = new ArrayList<Date>();
-        ArrayList<String> artifactNames = new ArrayList<String>();
-        ArrayList<String> artifactTypes = new ArrayList<String>();
-
-        //User currentUser = userSession.getUser();
-        listLoans = loanRepository.findAll();
-        Iterator<Loan> listIterator = listLoans.iterator();
-        //check all loans for any that are from user, store in a different list
-        while (listIterator.hasNext() == true) {
-            Loan currentLoan = listIterator.next();
-            if (currentLoan.getUserLoanedid() == userid)  {
-                //fetch relevant artifact details from repo
-                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
-                //store details of loan/artifact/user in lists
-                loanids.add(currentLoan.getLoanid());
-                artifactids.add(currentLoan.getArtifactid());
-                datesLoaned.add(currentLoan.getDateLoaned());
-                dueDates.add(currentLoan.getDueDate());
-                artifactNames.add(tempArt.getName());
-                artifactTypes.add(tempArt.getType());
-            }
-        }
-        //return lists with corresponding loan details
-        model.addAttribute("loanids", loanids);
-        model.addAttribute("artifactids", artifactids);
-        model.addAttribute("datesLoaned", datesLoaned);
-        model.addAttribute("dueDates", dueDates);
-        model.addAttribute("artifactNames", artifactNames);
-        model.addAttribute("artifactTypes", artifactTypes);
-
-        return "librarian_viewLoansResults.html";*/
-
+      if(userid == null){
+          return "librarian_viewMemberLoans.html";
+      }
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
@@ -810,6 +776,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_recordReturnedResults")
     public String librarian_recordReturnedResults(@RequestParam(name="artifactid") Long artifactid, Model model)    {
+        if(artifactid == null){ 
+            return "librarian_recordArtifactReturned.html";
+        }
         //check if artifact entered exists
         boolean artifactExists = false;
         Artifact latestArtifact = null;
