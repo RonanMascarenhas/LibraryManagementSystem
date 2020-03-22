@@ -222,26 +222,8 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
-
-        /*
-        private long loanid;
-    private long artifactid;           //tracks id of item being loaned
-    private long userid;            //tracks id of user who's loaned it
-    private boolean reserved = false;
-    private boolean loaned = false;
-    @CreationTimestamp
-    private Date dateLoaned;
-        */
-
-        List<Loan> listLoans; //= new List<Loan>();
-        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
-        ArrayList<Long> loanids = new ArrayList<Long>();
-        ArrayList<Long> artifactids = new ArrayList<Long>();
-        ArrayList<Date> datesLoaned = new ArrayList<Date>();
-        ArrayList<Date> dueDates = new ArrayList<Date>();
-        ArrayList<String> artifactNames = new ArrayList<String>();
-        ArrayList<String> artifactTypes = new ArrayList<String>();
-
+        /*List<Loan> listLoans; //= new List<Loan>();
+       
         User currentUser = userSession.getUser();
         listLoans = loanRepository.findAll();
         Iterator<Loan> listIterator = listLoans.iterator();
@@ -249,26 +231,25 @@ public class LMSController {//implements Iterable<T> {
         while (listIterator.hasNext() == true) {
             Loan currentLoan = listIterator.next();
             if (currentLoan.getUserLoanedid() == currentUser.getId())  {
-                //fetch relevant artifact details from repo
-                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
-                //store details of loan/artifact/user in lists
-                loanids.add(currentLoan.getLoanid());
-                artifactids.add(currentLoan.getArtifactid());
-                datesLoaned.add(currentLoan.getDateLoaned());
-                dueDates.add(currentLoan.getDueDate());
-                artifactNames.add(tempArt.getName());
-                artifactTypes.add(tempArt.getType());
+            
+            }
+        }*/
+        ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
+        
+        for(Loan tempLoan: loanRepository.findAll()){
+            if(tempLoan.getUserLoanedid() == userSession.getUser().getId()){
+                listLoans.add(tempLoan);
             }
         }
-        //return lists with corresponding loan details
-        model.addAttribute("loanids", loanids);
-        model.addAttribute("artifactids", artifactids);
-        model.addAttribute("datesLoaned", datesLoaned);
-        model.addAttribute("dueDates", dueDates);
-        model.addAttribute("artifactNames", artifactNames);
-        model.addAttribute("artifactTypes", artifactTypes);
-
-        return "member_view_loans.html";
+        if(listLoans.size() != 0){
+            model.addAttribute("message","Match found:" );
+            model.addAttribute("loans", listLoans);
+            return "member_view_loans.html";
+        }
+        else {
+            model.addAttribute("message", "There were no matching results for your search" );
+            return "member_view_loans.html";
+        }
     }
 
     @GetMapping("/member_loanout_item")
