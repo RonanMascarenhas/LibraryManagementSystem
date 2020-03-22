@@ -31,7 +31,9 @@
                                 <form method="GET" action="/librarian_renewResults">
                                     <div class="form-groups">
                                         <label for="loanid">Renew artifact by loanID:</label>
-                                        <input type="number" name="loanid" class="form-control" id="loanid" placeholder="loanid">
+                                            <select id="loanid" name="loanID" placeholder="loan ID">
+                                                <option th:each="i : ${loanids}" th:value="${i}" th:text="${i}"></option>
+                                            </select>
                                         <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
                                     </div>
                                 </form>
