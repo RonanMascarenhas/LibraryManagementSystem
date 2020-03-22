@@ -36,15 +36,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="artifact : ${artifacts}">
-                                        <td th:text = "${artifact.id}"></td>
-                                        <td th:text = "${artifact.name}"></td>
-                                        <td th:text = "${artifact.type}"></td>
-                                    </tr>
+                                        <td th:text = "${id}"></td>
+                                        <td th:text = "${name}"></td>
+                                        <td th:text = "${type}"></td>
                                 </tbody>
                             </table>
                             <div style="display: block; text-align: center; margin-top: 10%;">
-                                <form action="/member_search">
+                                <form action="/librarian_search">
                                     <button type="submit" class="btn btn-primary button_spacer">New Search</button>
                                 </form>
                             </div>

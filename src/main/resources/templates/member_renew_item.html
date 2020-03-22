@@ -30,8 +30,10 @@
                                 <!--test form delete later-->
                                 <form method="GET" action="/renew_search_results">
                                     <div class="form-groups">
-                                        <label for="reserveArtID">Renew artifact by loanID:</label>
-                                        <input type="number" name="loanID" class="form-control" id="reserveloanID" placeholder="loan ID">
+                                        <label for="reserveloanID">Renew artifact by loanID:</label>
+                                            <select id="reserveloanID" name="loanID" placeholder="loan ID">
+                                                <option th:each="i : ${currentUserLoanids}" th:value="${i}" th:text="${i}"></option>
+                                            </select>
                                         <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
                                     </div>
                                 </form>

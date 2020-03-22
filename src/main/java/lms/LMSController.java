@@ -32,8 +32,6 @@ public class LMSController {//implements Iterable<T> {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
-    @Autowired
-    private ArtifactRepository temprepo;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -88,10 +86,10 @@ public class LMSController {//implements Iterable<T> {
                 return "guest_id_results.html";
             }
             else if (userSession.getUser().getRole().equals("member")){
-                return "member_search_results.html";
+                return "member_id_results.html";
             }
             else {
-                return "librarian_search_results.html";
+                return "librarian_id_results.html";
             }
         }
         else{
@@ -104,21 +102,28 @@ public class LMSController {//implements Iterable<T> {
                 return "guest_id_results.html";
             }
             else if (userSession.getUser().getRole().equals("member")){
-                return "member_search_results.html";
+                return "member_id_results.html";
             }
             else {
-                return "librarian_search_results.html";
+                return "librarian_id_results.html";
             }
         }
     }
 
     @GetMapping("/search_results_type")
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
-        Artifact artifactCheck = artifactRepository.findByType(artifactType);
-        
-        if(artifactCheck != null){
+        ArrayList<Artifact> results = new ArrayList<Artifact>();
+
+        for(Artifact tempArt : artifactRepository.findAll()) {
+            if(tempArt.getType().equals(artifactType)){
+                results.add(tempArt);
+            }
+        }
+
+        if(results.size() != 0){
+
             model.addAttribute("message","Match found:" );
-            model.addAttribute("artifacts", artifactRepository.findByType(artifactType));
+            model.addAttribute("artifacts", results);
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
@@ -146,12 +151,19 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_name")
     public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
-        
-        Artifact artifactCheck = artifactRepository.findByName(artifactName.toLowerCase());
+        ArrayList<Artifact> results = new ArrayList<Artifact>();
 
-        if(artifactCheck != null){
+        artifactName = artifactName.toLowerCase();
+
+        for(Artifact tempArt : artifactRepository.findAll()) {
+            if(tempArt.getType().equals(artifactName)){
+                results.add(tempArt);
+            }
+        }
+
+        if(results.size() != 0){
             model.addAttribute("message","Match found:" );
-            model.addAttribute("artifacts", artifactRepository.findByName(artifactName.toLowerCase()));
+            model.addAttribute("artifacts", results);
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }

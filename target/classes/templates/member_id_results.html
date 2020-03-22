@@ -36,11 +36,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="artifact : ${artifacts}">
-                                        <td th:text = "${artifact.id}"></td>
-                                        <td th:text = "${artifact.name}"></td>
-                                        <td th:text = "${artifact.type}"></td>
-                                    </tr>
+                                        <td th:text = "${id}"></td>
+                                        <td th:text = "${name}"></td>
+                                        <td th:text = "${type}"></td>
                                 </tbody>
                             </table>
                             <div style="display: block; text-align: center; margin-top: 10%;">
