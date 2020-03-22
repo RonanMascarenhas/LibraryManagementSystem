@@ -151,12 +151,19 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_name")
     public String search_results_name(Model model, @RequestParam(name="artifactName") String artifactName)   {
-        
-        Artifact artifactCheck = artifactRepository.findByName(artifactName.toLowerCase());
+        ArrayList<Artifact> results = new ArrayList<Artifact>();
 
-        if(artifactCheck != null){
+        artifactName = artifactName.toLowerCase();
+
+        for(Artifact tempArt : artifactRepository.findAll()) {
+            if(tempArt.getType().equals(artifactName)){
+                results.add(tempArt);
+            }
+        }
+
+        if(results.size() != 0){
             model.addAttribute("message","Match found:" );
-            model.addAttribute("artifacts", artifactRepository.findByName(artifactName.toLowerCase()));
+            model.addAttribute("artifacts", results);
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
