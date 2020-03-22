@@ -114,6 +114,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_type")
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
+        
         ArrayList<Artifact> results = new ArrayList<Artifact>();
 
         artifactType = artifactType.toLowerCase();
@@ -346,7 +347,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/reserve_search_results")
     public String reserve_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
-
+        if(artifactID == null){
+            return "member_reserve_item.html";
+        }
         long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
@@ -702,6 +705,10 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_recordLoanResults")
     public String librarian_recordLoanResults(Model model, @RequestParam(name="artifactid") Long artifactid, @RequestParam(name="userid") Long userid)  {
+        
+        if(artifactid == null){
+            return "librarian_recordLoanResults.html";
+        }
         //check if artifact entered exists
         boolean artifactExists = false;
         Artifact latestArtifact = null;
