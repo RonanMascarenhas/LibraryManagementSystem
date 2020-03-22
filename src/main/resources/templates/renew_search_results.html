@@ -17,30 +17,20 @@
                         </div>
                 </div>
                 <div class="col-lg-5">&nbsp;</div>
-            <div class="col-lg-2 mx-auto"><a href="/logout"><button type="button" class="button_spacer btn btn-primary sign_up">Log out</button></a></div>
-        </div>
+            </div>
 
             <div class="row">
-                <div class="col-lg-1">&nbsp;</div>
-                <div class="col-lg-10">
+                <div class="col-lg-4">&nbsp;</div>
+                <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-12">
                             <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_search"><button type="button" class="btn btn-primary button_spacer">Search Artifacts</button></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_viewMemberLoans"><button type="button" class="btn btn-primary button_spacer">View Member Loans</button></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_addRemoveArtifacts"><button type="button" class="btn btn-primary button_spacer">Add/Remove Artifacts</button></a>
+                                <h3 th:text="${message}"></h3>
+                                <p th:text="${name}"></p>
+                                <a href="/member_menu"><button class="button_spacer btn btn-primary">Back to Member Menu</button></a>
+                                <!--<form action="/reserve_search_results">
+                                    <button type="submit" class="btn btn-primary button_spacer">Yes - Reserve this for me</button>
+                                </form>-->
                             </div>
                         </div>
                     </div>
@@ -52,5 +42,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 </html>

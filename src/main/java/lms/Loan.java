@@ -7,8 +7,11 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Calendar;
 //import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.time.Duration;
+import java.time.Instant;
 
 @Entity
 //@PersistenceConstructor
@@ -17,11 +20,13 @@ public class Loan{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long loanid;
     private long artifactid;           //tracks id of item being loaned
-    private long userid;            //tracks id of user who's loaned it
+    private long userLoanedid;            //tracks id of user who's loaned it
+    private long userReservedid;        //tracks id of user who's reserved it
     private boolean reserved = false;
     private boolean loaned = false;
     @CreationTimestamp
-    private Date dateLoaned;              //store date in ddmmyy format
+    private Date dateLoaned;
+    private Date dueDate;         //store date in ddmmyy format
 
     public long getLoanid() {
         return loanid;
@@ -39,12 +44,20 @@ public class Loan{
         this.artifactid = artifactid;
     }
 
-    public long getUserid() {
-        return userid;
+    public long getUserLoanedid() {
+        return userLoanedid;
     }
 
-    public void setUserid(long userid)   {
-        this.userid = userid;
+    public void setUserLoanedid(long userLoanedid)   {
+        this.userLoanedid = userLoanedid;
+    }
+
+    public long getUserReservedid() {
+        return userReservedid;
+    }
+
+    public void setUserReservedid(long userReservedid)   {
+        this.userReservedid = userReservedid;
     }
     
     public boolean getReserved() {
@@ -70,4 +83,20 @@ public class Loan{
     public void setDateLoaned(Date dateLoaned)   {
         this.dateLoaned = dateLoaned;
     }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate()   {
+        int addDays = 14;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateLoaned);
+        calendar.add(Calendar.DAY_OF_YEAR, addDays);
+        this.dueDate = calendar.getTime();
+        
+        //this.dueDate = dueDate;
+    }
+
+    //Date.from(dateLoaned.toInstant().plus(Duration.ofDays(14))); 
 }
