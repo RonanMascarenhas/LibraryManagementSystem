@@ -35,6 +35,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/")
     public String index(Model model) {
+        userSession.setUser(null);
         model.addAttribute("title", "Library: Home");
         model.addAttribute("user", userSession.getUser());
         return "index.html";
