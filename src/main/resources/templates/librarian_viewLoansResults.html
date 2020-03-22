@@ -17,31 +17,41 @@
                         </div>
                 </div>
                 <div class="col-lg-5">&nbsp;</div>
-            <div class="col-lg-2 mx-auto"><a href="/logout"><button type="button" class="button_spacer btn btn-primary sign_up">Log out</button></a></div>
-        </div>
+            </div>
 
             <div class="row">
-                <div class="col-lg-1">&nbsp;</div>
-                <div class="col-lg-10">
+                <div class="col-lg-4">&nbsp;</div>
+                <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_search"><button type="button" class="btn btn-primary button_spacer">Search Artifacts</button></a>
+                            <div style="margin-top: 10%;" >
+                                <h2>Member Loans:</h2>
+                                <table>
+                                    <tr th:each="loanid : ${loanids}">
+                                        <td th:text="${loanid}"></td>
+                                    </tr>
+                                    <tr th:each="artifactid : ${artifactids}">
+                                        <td th:text="${artifactid}"></td>
+                                    </tr>
+                                    <tr th:each="dateloaned : ${datesLoaned}">
+                                        <td th:text="${dateloaned}"></td>
+                                    </tr>
+                                    <tr th:each="duedate : ${dueDates}">
+                                        <td th:text="${duedate}"></td>
+                                    </tr>
+                                    <tr th:each="artifactname : ${artifactNames}">
+                                        <td th:text="${artifactname}"></td>
+                                    </tr>
+                                    <tr th:each="artifacttype : ${artifactTypes}">
+                                        <td th:text="${artifacttype}"></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_viewMemberLoans"><button type="button" class="btn btn-primary button_spacer">View Member Loans</button></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <a href="/librarian_addRemoveArtifacts"><button type="button" class="btn btn-primary button_spacer">Add/Remove Artifacts</button></a>
-                            </div>
+                            <a href="/librarian_menu"><button class="btn btn-primary button_spacer">Back to Menu</button></a>
                         </div>
                     </div>
                     <div class="row">
@@ -52,5 +62,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 </html>

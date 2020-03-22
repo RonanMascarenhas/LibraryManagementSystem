@@ -580,5 +580,66 @@ public class LMSController {//implements Iterable<T> {
                 artifactRepository.save(newArtifact);
                 return "librarian_menu.html";
             }
+    }
+
+    @GetMapping("/librarian_viewMemberLoans")
+    public String librarian_viewMemberLoans(Model model)    {
+        //User currentUser = userSession.getUser();
+        //ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
+
+        ArrayList<Long> memberids = new ArrayList<Long>();
+        List<User> listUsers = userRepository.findAll();
+        Iterator<User> listIterator = listUsers.iterator();
+        //search user repo, store all ids belonging to members
+        while (listIterator.hasNext() == true) {
+            User currentUser = listIterator.next();
+            if (currentUser.getRole() == "member")  {
+                memberids.add(currentUser.getId());
+            }
         }
+        
+        model.addAttribute("memberids", memberids);
+        return "librarian_viewMemberLoans.html";
+    }
+
+    @GetMapping("/librarian_viewLoansResults")
+    public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
+        List<Loan> listLoans; //= new List<Loan>();
+        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
+        ArrayList<Long> loanids = new ArrayList<Long>();
+        ArrayList<Long> artifactids = new ArrayList<Long>();
+        ArrayList<Date> datesLoaned = new ArrayList<Date>();
+        ArrayList<Date> dueDates = new ArrayList<Date>();
+        ArrayList<String> artifactNames = new ArrayList<String>();
+        ArrayList<String> artifactTypes = new ArrayList<String>();
+
+        //User currentUser = userSession.getUser();
+        listLoans = loanRepository.findAll();
+        Iterator<Loan> listIterator = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIterator.hasNext() == true) {
+            Loan currentLoan = listIterator.next();
+            if (currentLoan.getUserLoanedid() == userid)  {
+                //fetch relevant artifact details from repo
+                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
+                //store details of loan/artifact/user in lists
+                loanids.add(currentLoan.getLoanid());
+                artifactids.add(currentLoan.getArtifactid());
+                datesLoaned.add(currentLoan.getDateLoaned());
+                dueDates.add(currentLoan.getDueDate());
+                artifactNames.add(tempArt.getName());
+                artifactTypes.add(tempArt.getType());
+            }
+        }
+        //return lists with corresponding loan details
+        model.addAttribute("loanids", loanids);
+        model.addAttribute("artifactids", artifactids);
+        model.addAttribute("datesLoaned", datesLoaned);
+        model.addAttribute("dueDates", dueDates);
+        model.addAttribute("artifactNames", artifactNames);
+        model.addAttribute("artifactTypes", artifactTypes);
+
+        return "librarian_viewLoansResults.html";
+    }
+
 }
