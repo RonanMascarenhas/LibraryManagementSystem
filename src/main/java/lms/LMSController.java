@@ -447,7 +447,7 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/renew_search_results")
-    public String renew_search_results(@RequestParam(name="loanID") long loanID, Model model) {
+    public String renew_search_results(@RequestParam(name="loanID") Long loanID, Model model) {
         //fetch loan from repo 
         Loan currentLoan = loanRepository.getOne(loanID);
         User currentUser = userSession.getUser();
@@ -552,43 +552,6 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
-       /* List<Loan> listLoans; //= new List<Loan>();
-        //ArrayList<Loan> listUsersLoans = new ArrayList<Loan>();
-        ArrayList<Long> loanids = new ArrayList<Long>();
-        ArrayList<Long> artifactids = new ArrayList<Long>();
-        ArrayList<Date> datesLoaned = new ArrayList<Date>();
-        ArrayList<Date> dueDates = new ArrayList<Date>();
-        ArrayList<String> artifactNames = new ArrayList<String>();
-        ArrayList<String> artifactTypes = new ArrayList<String>();
-
-        //User currentUser = userSession.getUser();
-        listLoans = loanRepository.findAll();
-        Iterator<Loan> listIterator = listLoans.iterator();
-        //check all loans for any that are from user, store in a different list
-        while (listIterator.hasNext() == true) {
-            Loan currentLoan = listIterator.next();
-            if (currentLoan.getUserLoanedid() == userid)  {
-                //fetch relevant artifact details from repo
-                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
-                //store details of loan/artifact/user in lists
-                loanids.add(currentLoan.getLoanid());
-                artifactids.add(currentLoan.getArtifactid());
-                datesLoaned.add(currentLoan.getDateLoaned());
-                dueDates.add(currentLoan.getDueDate());
-                artifactNames.add(tempArt.getName());
-                artifactTypes.add(tempArt.getType());
-            }
-        }
-        //return lists with corresponding loan details
-        model.addAttribute("loanids", loanids);
-        model.addAttribute("artifactids", artifactids);
-        model.addAttribute("datesLoaned", datesLoaned);
-        model.addAttribute("dueDates", dueDates);
-        model.addAttribute("artifactNames", artifactNames);
-        model.addAttribute("artifactTypes", artifactTypes);
-
-        return "librarian_viewLoansResults.html";*/
-
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
@@ -673,17 +636,9 @@ public class LMSController {//implements Iterable<T> {
         //User currentUser = userSession.getUser();
         if (currentLoan.getReserved() == true)  {
             //item already reserved by user!
-            /*if (currentLoan.getUserReservedid() == currentUser.getId())   {
-                model.addAttribute("message", "You've already reserved this item!");
-                System.out.println("Item already reserved by user - can't reserve again!");
-                return "renew_search_results.html";
-            }
-            //item reserved by someone else, cannot be renewed
-            else   {*/
                 model.addAttribute("message", "Request denied - item already reserved");
                 System.out.println("Item already reserved - cannot be reserved renewed:(");
                 return "librarian_renewResults.html";
-            //}
         }
         //item not reserved - CAN be renewed
         else    {
@@ -854,10 +809,6 @@ public class LMSController {//implements Iterable<T> {
                         loanRepository.save(newLoan);
                         newLoan.setDueDate();
                         loanRepository.save(newLoan);
-                        /*latestLoan.setUserReservedid(-1);       //item is no longer reserved
-                        latestLoan.setReserved(false);
-                        loanRepository.save(latestLoan);
-                        latestLoan.setDueDate();*/
                         loanRepository.delete(latestLoan);
 
                         model.addAttribute("message", "Artifact is reserved - reallocating it to new member");
