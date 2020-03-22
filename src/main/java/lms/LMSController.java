@@ -249,6 +249,11 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/loanout_search_results")
     public String loanout_search_results(@RequestParam(name="artifactID") Long artifactID, Model model) {
+
+        if(artifactID == null){
+            return "member_loanout_item.html";
+        }
+
         long latestLoan = -1;
         List<Loan> listLoans; //= new List<Loan>();
         listLoans = loanRepository.findAll();
