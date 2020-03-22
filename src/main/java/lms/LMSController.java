@@ -32,8 +32,6 @@ public class LMSController {//implements Iterable<T> {
     private UserRepository userRepository;
     @Autowired
     private LoanRepository loanRepository;
-    @Autowired
-    private ArtifactRepository temprepo;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -88,10 +86,10 @@ public class LMSController {//implements Iterable<T> {
                 return "guest_id_results.html";
             }
             else if (userSession.getUser().getRole().equals("member")){
-                return "member_search_results.html";
+                return "member_id_results.html";
             }
             else {
-                return "librarian_search_results.html";
+                return "librarian_id_results.html";
             }
         }
         else{
@@ -104,10 +102,10 @@ public class LMSController {//implements Iterable<T> {
                 return "guest_id_results.html";
             }
             else if (userSession.getUser().getRole().equals("member")){
-                return "member_search_results.html";
+                return "member_id_results.html";
             }
             else {
-                return "librarian_search_results.html";
+                return "librarian_id_results.html";
             }
         }
     }
