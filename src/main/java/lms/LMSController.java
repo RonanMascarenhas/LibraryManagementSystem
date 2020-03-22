@@ -780,4 +780,102 @@ public class LMSController {//implements Iterable<T> {
             }  
         }
     }
+
+    @GetMapping("/librarian_recordArtifactReturned")
+    public String librarian_recordArtifactReturned(Model model) {
+        return "librarian_recordArtifactReturned.html";
+    }
+
+    @GetMapping("/librarian_recordReturnedResults")
+    public String librarian_recordReturnedResults(@RequestParam(name="artifactid") Long artifactid, Model model)    {
+        //check if artifact entered exists
+        boolean artifactExists = false;
+        Artifact latestArtifact = null;
+        List<Artifact> listArtifacts;
+        listArtifacts = artifactRepository.findAll();
+        Iterator<Artifact> listArtIterator = listArtifacts.iterator();
+
+        while (listArtIterator.hasNext() == true) {
+            Artifact currentArtifact = listArtIterator.next();
+            if (currentArtifact.getId() == artifactid)  {
+                //artifact exists
+                artifactExists = true;
+                latestArtifact = currentArtifact;
+            }
+        }
+
+        //artifact does NOT exist - return error
+        if (artifactExists == false)    {
+            model.addAttribute("message", "The artifact you entered doesn't exist. Ensure the details are correct.");
+            System.out.println("artifact doesnt exist :(");
+            return "librarian_recordReturnedResults.html";
+        }
+        //artifact DOES exist - check if it's already being loaned (fetch latest loan of artifact)
+        else    {
+            Loan latestLoan = null;
+            List<Loan> listLoans; //= new List<Loan>();
+            listLoans = loanRepository.findAll();
+            Iterator<Loan> listLoanIterator = listLoans.iterator();
+            while (listLoanIterator.hasNext() == true) {
+                Loan currentLoan = listLoanIterator.next();
+                if (currentLoan.getArtifactid() == artifactid)  {
+                    latestLoan = currentLoan;
+                }
+            }
+
+            //no previous loans for this artifact - cannot record as returned
+            if (latestLoan == null) {
+                model.addAttribute("message", "No prior loan records of artifact exist - cannot be recorded as returned");
+                System.out.println("artifact not loaned before - cant record returned :(");
+                return "librarian_recordReturnedResults.html";
+            }
+            //check if item was loaned out
+            else    {
+                //item not loaned out - cant be returned
+                if (latestLoan.getLoaned() == false)    {
+                    model.addAttribute("message", "Artifact not on loan - cannot be recorded as returned");
+                    System.out.println("artifact not on loan - cant record returned :(");
+                    return "librarian_recordReturnedResults.html";
+                }
+                //item is on loan, is now being returned
+                else    {
+                    //item has been reserved - reallocate the item
+                    if (latestLoan.getReserved() == true)   {
+                        Loan newLoan = new Loan();
+                        newLoan.setUserLoanedid(latestLoan.getUserReservedid());
+                        newLoan.setArtifactid(latestLoan.getArtifactid());
+                        newLoan.setArtifactName(latestLoan.getArtifactName());
+                        newLoan.setArtifactType(latestArtifact.getType());
+                        newLoan.setLoaned(true);
+                        loanRepository.save(newLoan);
+                        newLoan.setDueDate();
+                        loanRepository.save(newLoan);
+                        /*latestLoan.setUserReservedid(-1);       //item is no longer reserved
+                        latestLoan.setReserved(false);
+                        loanRepository.save(latestLoan);
+                        latestLoan.setDueDate();*/
+                        loanRepository.delete(latestLoan);
+
+                        model.addAttribute("message", "Artifact is reserved - reallocating it to new member");
+                        System.out.println("artifact reserved - sent to new member :)");
+                        return "librarian_recordReturnedResults.html";
+                    }
+                    //item not reserved - recording it as returned
+                    else    {
+                        latestLoan.setLoaned(false);
+                        latestLoan.setUserLoanedid(-1);
+                        latestLoan.setDateLoaned(null);
+                        loanRepository.delete(latestLoan);      //delete record of loan
+                        model.addAttribute("message", "Artifact not reserved - recording it as returned");
+                        System.out.println("artifact returned to library :)");
+                        return "librarian_recordReturnedResults.html";
+                    }
+                    
+                }
+            }
+        }
+
+
+    }
+
 }
