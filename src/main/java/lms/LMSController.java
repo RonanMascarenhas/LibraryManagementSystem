@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,25 +66,7 @@ public class LMSController {//implements Iterable<T> {
     
     @GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
-        Optional artifactCheck;
-        try
-        {
-            artifactCheck = artifactRepository.findById(artifactID);
-        } 
-        catch (Exception e)
-        {
-            model.addAttribute("message",
-            "There were no matching results for your search");
-            if(userSession.getUser() == null){
-                return "guest_search_results.html";
-            }
-            else if (userSession.getUser().getRole().equals("member")){
-                return "member_search_results.html";
-            }
-            else {
-                return "librarian_search_results.html";
-            }
-        }
+        Optional artifactCheck= artifactRepository.findById(artifactID);
 
         if(artifactCheck.isPresent() == false) {
             model.addAttribute("message",
@@ -98,17 +81,18 @@ public class LMSController {//implements Iterable<T> {
                 return "librarian_search_results.html";
             }
         }
-
-        model.addAttribute("message","Match found:" );
-        model.addAttribute("artifacts", artifactRepository.findById(artifactID));
-        if(userSession.getUser() == null){
-            return "guest_search_results.html";
-        }
-        else if (userSession.getUser().getRole().equals("member")){
-            return "member_search_results.html";
-        }
-        else {
-            return "librarian_search_results.html";
+        else{
+            model.addAttribute("message","Match found:" );
+            model.addAttribute("artifacts", artifactRepository.findById(artifactID));
+            if(userSession.getUser() == null){
+                return "guest_search_results.html";
+            }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search_results.html";
+            }
+            else {
+                return "librarian_search_results.html";
+            }
         }
     }
 
@@ -118,8 +102,7 @@ public class LMSController {//implements Iterable<T> {
         
         if(artifactCheck != null){
             model.addAttribute("message","Match found:" );
-            
-            model.addAttribute("artifacts", temprepo.findAll());
+            model.addAttribute("artifacts", artifactRepository.findByType(artifactType));
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }
