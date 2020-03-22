@@ -498,30 +498,6 @@ public class LMSController {//implements Iterable<T> {
             loanRepository.save(currentLoan);
             return "renew_search_results.html";
         }
-        
-        /*User currentUser = userSession.getUser();
-        ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
-
-        List<Loan> listLoans = loanRepository.findAll();
-        Iterator<Loan> listIterator = listLoans.iterator();
-        //check all loans for any that are from user, store in a different list
-        while (listIterator.hasNext() == true) {
-            Loan currentLoan = listIterator.next();
-            if (currentLoan.getUserLoanedid() == currentUser.getId())  {
-                currentUserLoans.add(currentLoan);
-
-                fetch relevant artifact details from repo
-                Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
-                //store details of loan/artifact/user in lists
-                loanids.add(currentLoan.getLoanid());
-                artifactids.add(currentLoan.getArtifactid());
-                datesLoaned.add(currentLoan.getDateLoaned());
-                dueDates.add(currentLoan.getDueDate());
-                artifactNames.add(tempArt.getName());
-                artifactTypes.add(tempArt.getType());
-            }
-        }*/
-
 
     }
 
@@ -636,6 +612,86 @@ public class LMSController {//implements Iterable<T> {
         model.addAttribute("artifactTypes", artifactTypes);
 
         return "librarian_viewLoansResults.html";
+    }
+
+    @GetMapping("/librarian_useridInput")
+    public String librarian_useridInput(Model model) {
+        return "librarian_useridInput.html";
+    }
+
+    @GetMapping("/librarian_loanRenew")
+    public String librarian_loanRenew(@RequestParam(name="userid") Long userid, Model model) {
+        //ArrayList<Long> memberids = new ArrayList<Long>();
+        //make sure that the inputted id belongs to a member
+        List<User> listUsers = userRepository.findAll();
+        Iterator<User> listIterator = listUsers.iterator();
+        User selectedUser = null;
+
+        while (listIterator.hasNext() == true) {
+            User currentUser = listIterator.next();
+            //matching member found
+            if (currentUser.getId().equals(userid) && currentUser.getRole().equals("member"))  {
+                selectedUser = currentUser; 
+            }
+        }
+        //id doesnt match any members
+        if (selectedUser == null)   {
+            model.addAttribute("message", "Inputted id doesnt match any members on record. Make sure the id you entered is correct.");
+            return "librarian_renewResults.html";
+        }
+        //id matches a member - fetch all loanids relating to that member
+        else    {
+        List<Loan> listLoans; //= new List<Loan>();
+        ArrayList<Long> loanids = new ArrayList<Long>();
+
+        listLoans = loanRepository.findAll();
+        Iterator<Loan> listIteratorTwo = listLoans.iterator();
+        //check all loans for any that are from user, store in a different list
+        while (listIteratorTwo.hasNext() == true) {
+            Loan currentLoan = listIteratorTwo.next();
+            if (currentLoan.getUserLoanedid() == selectedUser.getId())  {
+                loanids.add(currentLoan.getLoanid());
+            }
+        }
+        //return list with corresponding loanids belonging to that member
+        model.addAttribute("loanids", loanids);
+        return "librarian_loanRenew.html";
+        }
+
+    }
+
+    @GetMapping("/librarian_renewResults")
+    public String librarian_renewResults(@RequestParam(name="loanid") Long loanid, Model model) {
+        
+        //fetch loan from repo 
+        Loan currentLoan = loanRepository.getOne(loanid);
+        //User currentUser = userSession.getUser();
+        if (currentLoan.getReserved() == true)  {
+            //item already reserved by user!
+            /*if (currentLoan.getUserReservedid() == currentUser.getId())   {
+                model.addAttribute("message", "You've already reserved this item!");
+                System.out.println("Item already reserved by user - can't reserve again!");
+                return "renew_search_results.html";
+            }
+            //item reserved by someone else, cannot be renewed
+            else   {*/
+                model.addAttribute("message", "Request denied - item already reserved by someone else");
+                System.out.println("Item already reserved by someone else - cannot be reserved :(");
+                return "librarian_renewResults.html";
+            //}
+        }
+        //item not reserved - CAN be renewed
+        else    {
+            model.addAttribute("message", "Item renewed");
+            System.out.println("No reservation - item renewed :)");
+            currentLoan.setReserved(true);
+            currentLoan.setUserReservedid(currentLoan.getUserLoanedid());   //since member thats loaning it is going to renew it
+            loanRepository.save(currentLoan);   
+            currentLoan.setDueDate();
+            loanRepository.save(currentLoan);
+            return "librarian_renewResults.html";
+        }
+        //return "librarian_renewResults.html";
     }
 
 }
