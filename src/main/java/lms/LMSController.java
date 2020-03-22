@@ -114,11 +114,18 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/search_results_type")
     public String search_results_type(Model model, @RequestParam(name="artifactType") String artifactType)   {
-        Artifact artifactCheck = artifactRepository.findByType(artifactType);
-        
-        if(artifactCheck != null){
+        ArrayList<Artifact> results = new ArrayList<Artifact>();
+
+        for(Artifact tempArt : artifactRepository.findAll()) {
+            if(tempArt.getType().equals(artifactType)){
+                results.add(tempArt);
+            }
+        }
+
+        if(results.size() != 0){
+
             model.addAttribute("message","Match found:" );
-            model.addAttribute("artifacts", artifactRepository.findByType(artifactType));
+            model.addAttribute("artifacts", results);
             if(userSession.getUser() == null){
                 return "guest_search_results.html";
             }

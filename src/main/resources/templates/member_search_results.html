@@ -25,9 +25,11 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div style="display: block; text-align: center; margin-top: 10%;" >
-                                <h3 th:text="${message}"></h3>
-                                <p th:text="${name}"></p>
-                                <p th:text="${type}"></p>
+                                <tr th:each="artifact : ${artifacts}">
+                                    <td th:text = "${artifact.id}"></td>
+                                    <td th:text = "${artifact.name}"></td>
+                                    <td th:text = "${artifact.type}"></td>
+                                </tr>
                                 <form action="/member_search">
                                     <button type="submit" class="btn btn-primary button_spacer">New Search</button>
                                 </form>
