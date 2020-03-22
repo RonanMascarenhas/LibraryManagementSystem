@@ -697,4 +697,55 @@ public class LMSController {//implements Iterable<T> {
         return "librarian_recordArtifactOnLoan.html";
     }
 
+    @GetMapping("/librarian_recordLoanResults")
+    public String librarian_recordLoanResults(Model model, @RequestParam(name="artifactid") Long artifactid, @RequestParam(name="userid") Long userid)  {
+        //check if artifact entered exists
+        boolean artifactExists = false;
+        Artifact latestArtifact = null;
+        List<Artifact> listArtifacts;
+        listArtifacts = artifactRepository.findAll();
+        Iterator<Artifact> listArtIterator = listArtifacts.iterator();
+
+        while (listArtIterator.hasNext() == true) {
+            Artifact currentArtifact = listArtIterator.next();
+            if (currentArtifact.getId() == artifactid)  {
+                //artifact exists
+                artifactExists = true;
+                latestArtifact = currentArtifact;
+            }
+        }
+            
+        //artifact does NOT exist - return error
+        if (artifactExists == false)    {
+            model.addAttribute("message", "The artifact you entered doesn't exist. Ensure the details are correct.");
+            return "librarian_recordLoanResults.html";
+        }
+        //artifact DOES exist - check if it's already being loaned (fetch latest loan of artifact)
+        else    {
+            Loan latestLoan = null;
+            List<Loan> listLoans; //= new List<Loan>();
+            listLoans = loanRepository.findAll();
+            Iterator<Loan> listLoanIterator = listLoans.iterator();
+            while (listLoanIterator.hasNext() == true) {
+                Loan currentLoan = listLoanIterator.next();
+                if (currentLoan.getArtifactid() == artifactid)  {
+                    latestLoan = currentLoan;
+                }
+            }
+
+            //artifact is already being loaned out - cant be recorded as on loan
+            if (latestLoan.getLoaned() == true) {
+                model.addAttribute("message", "Artifact is already on loan - can't be recorded as on loan.");
+                return "librarian_recordLoanResults.html";
+            }
+            //artifact is NOT on loan - record it as on loan, set userid as id of person that loaned it 
+            //(assumming person may not be registered on LMS, can have unregistered member id)
+            else    {
+                latestLoan.setLoaned(true);
+                latestLoan.setUserLoanedid(userid);
+                model.addAttribute("message", "Artifact successfully recorded as on loan");
+                return "librarian_recordLoanResults.html";
+            }
+        }
+    }
 }
