@@ -29,11 +29,23 @@
                                 <!--test form delete later-->
                                 <form method="GET" action="/renew_search_results">
                                     <div class="form-groups">
-                                        <label for="renewloanID">Renew artifact by loanID:</label>
-                                            <select id="renewloanID" name="renewloanID" placeholder="renewloan ID">
-                                                <option th:each="i : ${currentUserLoans}" th:value="${i.loanid}" th:text="${i.artifactName}"></option>
-                                            </select>
-                                        <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label for="renewloanID">Renew artifact by loanID:</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <select class="form-control" id="renewloanID" name="renewloanID">
+                                                    <option th:each="i : ${currentUserLoans}" th:value="${i.loanid}" th:text="${i.artifactName}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">    
+                                                <button type="submit" class=" btn btn-primary button_spacer">Renew</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
