@@ -721,6 +721,7 @@ public class LMSController {//implements Iterable<T> {
         //artifact does NOT exist - return error
         if (artifactExists == false)    {
             model.addAttribute("message", "The artifact you entered doesn't exist. Ensure the details are correct.");
+            System.out.println("artifact doesnt exist :(");
             return "librarian_recordLoanResults.html";
         }
         //artifact DOES exist - check if it's already being loaned (fetch latest loan of artifact)
@@ -736,19 +737,40 @@ public class LMSController {//implements Iterable<T> {
                 }
             }
 
-            //artifact is already being loaned out - cant be recorded as on loan
-            if (latestLoan.getLoaned() == true) {
-                model.addAttribute("message", "Artifact is already on loan - can't be recorded as on loan.");
+            //no previous loans for this artifact - create new loan with userid as loaner
+            if (latestLoan == null) {
+                Loan newLoan = new Loan();
+                newLoan.setArtifactid(artifactid);
+                newLoan.setLoaned(true);
+                //User currentUser = userSession.getUser();
+                newLoan.setUserLoanedid(userid);
+                newLoan.setArtifactName(latestArtifact.getName());
+                newLoan.setArtifactType(latestArtifact.getType());
+                //newLoan.setDueDate();
+                loanRepository.save(newLoan);
+                newLoan.setDueDate();
+                loanRepository.save(newLoan);
+                model.addAttribute("message", "New loan created - artifact successfully recorded as on loan");
+                System.out.println("artifact recorded on loan - new loan created :)");
                 return "librarian_recordLoanResults.html";
             }
-            //artifact is NOT on loan - record it as on loan, set userid as id of person that loaned it 
-            //(assumming person may not be registered on LMS, can have unregistered member id)
             else    {
-                latestLoan.setLoaned(true);
-                latestLoan.setUserLoanedid(userid);
-                model.addAttribute("message", "Artifact successfully recorded as on loan");
-                return "librarian_recordLoanResults.html";
-            }
+                //artifact is already being loaned out - cant be recorded as on loan
+                if (latestLoan.getLoaned() == true) {
+                    model.addAttribute("message", "Artifact is already on loan - can't be recorded as on loan.");
+                    System.out.println("artifact already on loan - cant be recorded :(");
+                    return "librarian_recordLoanResults.html";
+                }
+                //artifact is NOT on loan - record it as on loan, set userid as id of person that loaned it 
+                //(assumming person may not be registered on LMS, can have unregistered member id)
+                else    {
+                    latestLoan.setLoaned(true);
+                    latestLoan.setUserLoanedid(userid);
+                    model.addAttribute("message", "Artifact successfully recorded as on loan");
+                    System.out.println("artifact recorded on loan :)");
+                    return "librarian_recordLoanResults.html";
+                }
+            }  
         }
     }
 }
