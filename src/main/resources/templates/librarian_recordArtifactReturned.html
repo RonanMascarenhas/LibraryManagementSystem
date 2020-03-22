@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <div th:replace="common/head.html"></div> 
+
+    <body style="background-image: url('images/background4.jpg'); background-size:  cover;">
+        <div class="container rounded" style="background-color: white; margin-top: 5%;">
+            <div class="row">
+                <div class="col-md-2 logo" style="margin-top: 5px; margin-left: 5px;"><a href="/"><img id=logo src="images/logo.png" height="100%" width="auto"></a></div>
+                <div class="col-lg-2" style="padding-left: 0px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-10"><h1 class="title">LMS</h1></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10"><p style="font-size: x-small;">Library Managment System</p></div>
+                            <div class="col-xs-2">&nbsp;</div>
+                        </div>
+                </div>
+                <div class="col-lg-8">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div style=" margin-top: 10%;" >
+                                <form method="GET" action="/librarian_recordReturnedResults">
+                                    <div class="form-groups">
+                                        <label for="artifactid">Enter id of artifact to record as returned:</label>
+                                        <input type="number" class="form-control" name="artifactid" id="artifactid" placeholder="artifactid">
+                                        <button type="submit" class=" btn btn-primary button_spacer">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">&nbsp;</div>
+                    </div>
+                </div>
+            <div class="col-lg-1">&nbsp;</div>
+        </div>
+    </body>
+</html>
