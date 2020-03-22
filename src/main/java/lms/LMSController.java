@@ -552,12 +552,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
-<<<<<<< HEAD
-=======
       if(userid == null){
           return "librarian_viewMemberLoans.html";
       }
->>>>>>> 639b347ba2539acf6e38104d8800e44b7786ac8f
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
