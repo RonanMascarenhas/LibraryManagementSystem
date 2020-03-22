@@ -697,8 +697,8 @@ public class LMSController {//implements Iterable<T> {
             }
             //item reserved by someone else, cannot be renewed
             else   {*/
-                model.addAttribute("message", "Request denied - item already reserved by someone else");
-                System.out.println("Item already reserved by someone else - cannot be reserved :(");
+                model.addAttribute("message", "Request denied - item already reserved");
+                System.out.println("Item already reserved - cannot be reserved renewed:(");
                 return "librarian_renewResults.html";
             //}
         }
