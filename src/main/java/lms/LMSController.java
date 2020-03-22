@@ -278,6 +278,8 @@ public class LMSController {//implements Iterable<T> {
                     newLoan.setLoaned(true);
                     User currentUser = userSession.getUser();
                     newLoan.setUserLoanedid(currentUser.getId());
+                    newLoan.setArtifactName(currentArtifact.getName());
+                    newLoan.setArtifactType(currentArtifact.getType());
                     //newLoan.setDueDate();
                     loanRepository.save(newLoan);
                     newLoan.setDueDate();
