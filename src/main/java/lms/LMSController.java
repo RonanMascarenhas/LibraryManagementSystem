@@ -35,6 +35,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/")
     public String index(Model model) {
+        userSession.setUser(null);
         model.addAttribute("title", "Library: Home");
         model.addAttribute("user", userSession.getUser());
         return "index.html";
@@ -222,6 +223,7 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/member_view_loans")
     public String member_view_loans(Model model) {
+<<<<<<< HEAD
         /*List<Loan> listLoans; //= new List<Loan>();
        
         User currentUser = userSession.getUser();
@@ -234,6 +236,9 @@ public class LMSController {//implements Iterable<T> {
             
             }
         }*/
+=======
+       
+>>>>>>> 40d71a9bc453958ebfe6984852d1f724e868fe46
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
