@@ -66,6 +66,19 @@ public class LMSController {//implements Iterable<T> {
     
     @GetMapping("/search_results_ID")
     public String search_results_ID(@RequestParam(name="artifactID") Long artifactID, Model model)   {
+
+        if(artifactID == null){
+            if(userSession.getUser() == null){
+                return "guest_search.html";
+            }
+            else if (userSession.getUser().getRole().equals("member")){
+                return "member_search.html";
+            }
+            else {
+                return "librarian_search.html";
+            }
+        }
+
         Optional<Artifact> artifactCheck = artifactRepository.findById(artifactID);
 
         if(artifactCheck.isPresent() == false) {
