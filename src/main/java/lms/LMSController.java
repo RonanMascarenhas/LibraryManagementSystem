@@ -552,6 +552,12 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_viewLoansResults")
     public String librarian_viewLoansResults(@RequestParam(name="userid") Long userid, Model model) {
+<<<<<<< HEAD
+=======
+      if(userid == null){
+          return "librarian_viewMemberLoans.html";
+      }
+>>>>>>> 639b347ba2539acf6e38104d8800e44b7786ac8f
         ArrayList<Loan> listLoans = new ArrayList<Loan>(); 
         
         for(Loan tempLoan: loanRepository.findAll()){
@@ -747,6 +753,9 @@ public class LMSController {//implements Iterable<T> {
 
     @GetMapping("/librarian_recordReturnedResults")
     public String librarian_recordReturnedResults(@RequestParam(name="artifactid") Long artifactid, Model model)    {
+        if(artifactid == null){ 
+            return "librarian_recordArtifactReturned.html";
+        }
         //check if artifact entered exists
         boolean artifactExists = false;
         Artifact latestArtifact = null;
