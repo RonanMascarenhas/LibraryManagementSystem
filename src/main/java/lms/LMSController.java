@@ -661,10 +661,10 @@ public class LMSController {//implements Iterable<T> {
     }
 
     @GetMapping("/librarian_renewResults")
-    public String librarian_renewResults(@RequestParam(name="loanid") Long loanid, Model model) {
+    public String librarian_renewResults(@RequestParam(name="loanID") long loanID, Model model) {
         
         //fetch loan from repo 
-        Loan currentLoan = loanRepository.getOne(loanid);
+        Loan currentLoan = loanRepository.getOne(loanID);
         //User currentUser = userSession.getUser();
         if (currentLoan.getReserved() == true)  {
             //item already reserved by user!
