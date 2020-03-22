@@ -454,7 +454,7 @@ public class LMSController {//implements Iterable<T> {
     public String member_renew_item(Model model) {
         User currentUser = userSession.getUser();
         //ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
-        ArrayList<Long> currentUserLoanids = new ArrayList<Long>();
+        ArrayList<Loan> currentUserLoans = new ArrayList<Loan>();
 
         List<Loan> listLoans = loanRepository.findAll();
         Iterator<Loan> listIterator = listLoans.iterator();
@@ -462,7 +462,7 @@ public class LMSController {//implements Iterable<T> {
         while (listIterator.hasNext() == true) {
             Loan currentLoan = listIterator.next();
             if (currentLoan.getUserLoanedid() == currentUser.getId())  {
-                currentUserLoanids.add(currentLoan.getLoanid());
+                currentUserLoans.add(currentLoan);
 
                 /*fetch relevant artifact details from repo
                 Artifact tempArt = artifactRepository.getOne(currentLoan.getArtifactid());
@@ -476,7 +476,7 @@ public class LMSController {//implements Iterable<T> {
             }
         }
         
-        model.addAttribute("currentUserLoanids", currentUserLoanids);
+        model.addAttribute("currentUserLoans", currentUserLoans);
         return "member_renew_item.html";
     }
 
