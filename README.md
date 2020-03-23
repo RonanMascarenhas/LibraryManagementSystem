@@ -1,10 +1,14 @@
 # Project 1
 Library Management System 
 
+Team name: The Web Dev Disaster
+
+Team members:
 Finn O'Neill - 17367986
 Ethan Cairney - 17320391
 Ronan Mascarenhas - 17379773
 
+How to Run:
 Running in both docker and maven
 
 in application properties the h2-dialect
@@ -16,3 +20,7 @@ docker build -t project-1:latest .
 
 and to run it 
 docker run --name project-1 -p 8080:8080 project-1:latest
+
+Documentation:
+Wireframes, report located in documentation folder.
+
